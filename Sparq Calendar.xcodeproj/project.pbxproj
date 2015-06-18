@@ -1,0 +1,426 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DB031B921B338C3700417713 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B911B338C3700417713 /* AppDelegate.swift */; };
+		DB031B941B338C3700417713 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B931B338C3700417713 /* ViewController.swift */; };
+		DB031B971B338C3700417713 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB031B951B338C3700417713 /* Main.storyboard */; };
+		DB031B991B338C3700417713 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB031B981B338C3700417713 /* Images.xcassets */; };
+		DB031B9C1B338C3700417713 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB031B9A1B338C3700417713 /* LaunchScreen.xib */; };
+		DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DB031BA21B338C3700417713 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB031B841B338C3700417713 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB031B8B1B338C3700417713;
+			remoteInfo = "Sparq Calendar";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DB031B8C1B338C3700417713 /* Sparq Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sparq Calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB031B901B338C3700417713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB031B911B338C3700417713 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DB031B931B338C3700417713 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DB031B961B338C3700417713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DB031B981B338C3700417713 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DB031B9B1B338C3700417713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		DB031BA11B338C3700417713 /* Sparq CalendarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sparq CalendarTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB031BA61B338C3700417713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparq_CalendarTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB031B891B338C3700417713 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB031B9E1B338C3700417713 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DB031B831B338C3700417713 = {
+			isa = PBXGroup;
+			children = (
+				DB031B8E1B338C3700417713 /* Sparq Calendar */,
+				DB031BA41B338C3700417713 /* Sparq CalendarTests */,
+				DB031B8D1B338C3700417713 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DB031B8D1B338C3700417713 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB031B8C1B338C3700417713 /* Sparq Calendar.app */,
+				DB031BA11B338C3700417713 /* Sparq CalendarTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB031B8E1B338C3700417713 /* Sparq Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				DB031B911B338C3700417713 /* AppDelegate.swift */,
+				DB031B931B338C3700417713 /* ViewController.swift */,
+				DB031B951B338C3700417713 /* Main.storyboard */,
+				DB031B981B338C3700417713 /* Images.xcassets */,
+				DB031B9A1B338C3700417713 /* LaunchScreen.xib */,
+				DB031B8F1B338C3700417713 /* Supporting Files */,
+			);
+			path = "Sparq Calendar";
+			sourceTree = "<group>";
+		};
+		DB031B8F1B338C3700417713 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DB031B901B338C3700417713 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DB031BA41B338C3700417713 /* Sparq CalendarTests */ = {
+			isa = PBXGroup;
+			children = (
+				DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */,
+				DB031BA51B338C3700417713 /* Supporting Files */,
+			);
+			path = "Sparq CalendarTests";
+			sourceTree = "<group>";
+		};
+		DB031BA51B338C3700417713 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DB031BA61B338C3700417713 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DB031B8B1B338C3700417713 /* Sparq Calendar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB031BAB1B338C3700417713 /* Build configuration list for PBXNativeTarget "Sparq Calendar" */;
+			buildPhases = (
+				DB031B881B338C3700417713 /* Sources */,
+				DB031B891B338C3700417713 /* Frameworks */,
+				DB031B8A1B338C3700417713 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sparq Calendar";
+			productName = "Sparq Calendar";
+			productReference = DB031B8C1B338C3700417713 /* Sparq Calendar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DB031BA01B338C3700417713 /* Sparq CalendarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB031BAE1B338C3700417713 /* Build configuration list for PBXNativeTarget "Sparq CalendarTests" */;
+			buildPhases = (
+				DB031B9D1B338C3700417713 /* Sources */,
+				DB031B9E1B338C3700417713 /* Frameworks */,
+				DB031B9F1B338C3700417713 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB031BA31B338C3700417713 /* PBXTargetDependency */,
+			);
+			name = "Sparq CalendarTests";
+			productName = "Sparq CalendarTests";
+			productReference = DB031BA11B338C3700417713 /* Sparq CalendarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DB031B841B338C3700417713 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Sparq Calendar";
+				TargetAttributes = {
+					DB031B8B1B338C3700417713 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					DB031BA01B338C3700417713 = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = DB031B8B1B338C3700417713;
+					};
+				};
+			};
+			buildConfigurationList = DB031B871B338C3700417713 /* Build configuration list for PBXProject "Sparq Calendar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DB031B831B338C3700417713;
+			productRefGroup = DB031B8D1B338C3700417713 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DB031B8B1B338C3700417713 /* Sparq Calendar */,
+				DB031BA01B338C3700417713 /* Sparq CalendarTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DB031B8A1B338C3700417713 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB031B971B338C3700417713 /* Main.storyboard in Resources */,
+				DB031B9C1B338C3700417713 /* LaunchScreen.xib in Resources */,
+				DB031B991B338C3700417713 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB031B9F1B338C3700417713 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB031B881B338C3700417713 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB031B941B338C3700417713 /* ViewController.swift in Sources */,
+				DB031B921B338C3700417713 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB031B9D1B338C3700417713 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DB031BA31B338C3700417713 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB031B8B1B338C3700417713 /* Sparq Calendar */;
+			targetProxy = DB031BA21B338C3700417713 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DB031B951B338C3700417713 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB031B961B338C3700417713 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DB031B9A1B338C3700417713 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB031B9B1B338C3700417713 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DB031BA91B338C3700417713 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		DB031BAA1B338C3700417713 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DB031BAC1B338C3700417713 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DB031BAD1B338C3700417713 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DB031BAF1B338C3700417713 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Sparq CalendarTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sparq Calendar.app/Sparq Calendar";
+			};
+			name = Debug;
+		};
+		DB031BB01B338C3700417713 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Sparq CalendarTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sparq Calendar.app/Sparq Calendar";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB031B871B338C3700417713 /* Build configuration list for PBXProject "Sparq Calendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB031BA91B338C3700417713 /* Debug */,
+				DB031BAA1B338C3700417713 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB031BAB1B338C3700417713 /* Build configuration list for PBXNativeTarget "Sparq Calendar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB031BAC1B338C3700417713 /* Debug */,
+				DB031BAD1B338C3700417713 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DB031BAE1B338C3700417713 /* Build configuration list for PBXNativeTarget "Sparq CalendarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB031BAF1B338C3700417713 /* Debug */,
+				DB031BB01B338C3700417713 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DB031B841B338C3700417713 /* Project object */;
+}
