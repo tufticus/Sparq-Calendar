@@ -411,6 +411,7 @@
 				DB031BAD1B338C3700417713 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB031BAE1B338C3700417713 /* Build configuration list for PBXNativeTarget "Sparq CalendarTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +420,7 @@
 				DB031BB01B338C3700417713 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
