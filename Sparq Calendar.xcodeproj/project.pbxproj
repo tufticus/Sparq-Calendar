@@ -9,10 +9,47 @@
 /* Begin PBXBuildFile section */
 		DB031B921B338C3700417713 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B911B338C3700417713 /* AppDelegate.swift */; };
 		DB031B941B338C3700417713 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B931B338C3700417713 /* ViewController.swift */; };
-		DB031B971B338C3700417713 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB031B951B338C3700417713 /* Main.storyboard */; };
 		DB031B991B338C3700417713 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB031B981B338C3700417713 /* Images.xcassets */; };
-		DB031B9C1B338C3700417713 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB031B9A1B338C3700417713 /* LaunchScreen.xib */; };
 		DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */; };
+		DB15D4721B545CE600CA2A63 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4711B545CE600CA2A63 /* RestApiManager.swift */; };
+		DB15D4771B56AB5A00CA2A63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */; };
+		DB15D47A1B599D3300CA2A63 /* Class.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4781B599D3300CA2A63 /* Class.xcdatamodeld */; };
+		DB2280691B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */; };
+		DB22806A1B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */; };
+		DB2280761B51DC4C0023D10F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */; };
+		DB2280771B51DC4C0023D10F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */; };
+		DB2EF47D1B66DE3700F78317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2EF47B1B66DE3700F78317 /* Main.storyboard */; };
+		DB2EF47E1B66DE3700F78317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2EF47B1B66DE3700F78317 /* Main.storyboard */; };
+		DB7BE6641B5D590300F2725F /* Holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6631B5D590300F2725F /* Holidays.swift */; };
+		DB7BE6661B5D590400F2725F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6651B5D590400F2725F /* User.swift */; };
+		DB7BE66C1B5D590400F2725F /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE66B1B5D590400F2725F /* Schedule.swift */; };
+		DBA38C121B5D9DCC00CC09DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B911B338C3700417713 /* AppDelegate.swift */; };
+		DBCE7F6D1B6589330008D0BF /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F641B6589330008D0BF /* FMDatabase.m */; };
+		DBCE7F6E1B6589330008D0BF /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F641B6589330008D0BF /* FMDatabase.m */; };
+		DBCE7F6F1B6589330008D0BF /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F661B6589330008D0BF /* FMResultSet.m */; };
+		DBCE7F701B6589330008D0BF /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F661B6589330008D0BF /* FMResultSet.m */; };
+		DBCE7F711B6589330008D0BF /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F681B6589330008D0BF /* FMDatabaseQueue.m */; };
+		DBCE7F721B6589330008D0BF /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F681B6589330008D0BF /* FMDatabaseQueue.m */; };
+		DBCE7F731B6589330008D0BF /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F6A1B6589330008D0BF /* FMDatabaseAdditions.m */; };
+		DBCE7F741B6589330008D0BF /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F6A1B6589330008D0BF /* FMDatabaseAdditions.m */; };
+		DBCE7F751B6589330008D0BF /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F6C1B6589330008D0BF /* FMDatabasePool.m */; };
+		DBCE7F761B6589330008D0BF /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F6C1B6589330008D0BF /* FMDatabasePool.m */; };
+		DBCE7F781B65A0230008D0BF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCE7F771B65A0230008D0BF /* libsqlite3.dylib */; };
+		DBCE7F791B65A0230008D0BF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCE7F771B65A0230008D0BF /* libsqlite3.dylib */; };
+		DBE50E031B66AADF00E43954 /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE50E021B66AADF00E43954 /* ClassTableViewCell.swift */; };
+		DBE50E041B66AADF00E43954 /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE50E021B66AADF00E43954 /* ClassTableViewCell.swift */; };
+		DBF2F4E31B5EB5ED00B2F44F /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE66B1B5D590400F2725F /* Schedule.swift */; };
+		DBF2F4E61B5EB5F800B2F44F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6651B5D590400F2725F /* User.swift */; };
+		DBF2F4E71B5EB5FB00B2F44F /* Holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6631B5D590300F2725F /* Holidays.swift */; };
+		DBF2F4E91B5EB60900B2F44F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */; };
+		DBF2F4EA1B5EB61000B2F44F /* Class.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4781B599D3300CA2A63 /* Class.xcdatamodeld */; };
+		DBF2F4EB1B5EB61400B2F44F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B931B338C3700417713 /* ViewController.swift */; };
+		DBF2F4EC1B5EB61600B2F44F /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4711B545CE600CA2A63 /* RestApiManager.swift */; };
+		DBF2F4F11B5F065D00B2F44F /* ClassMeetings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2F4F01B5F065D00B2F44F /* ClassMeetings.swift */; };
+		DBF2F4F21B5F065D00B2F44F /* ClassMeetings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2F4F01B5F065D00B2F44F /* ClassMeetings.swift */; };
+		DBF2F4F41B5FE56300B2F44F /* Days.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2F4F31B5FE56300B2F44F /* Days.swift */; };
+		DBF2F4F51B5FE56300B2F44F /* Days.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2F4F31B5FE56300B2F44F /* Days.swift */; };
+		DBF2F4F71B600F6000B2F44F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB031B9A1B338C3700417713 /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,12 +67,37 @@
 		DB031B901B338C3700417713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB031B911B338C3700417713 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB031B931B338C3700417713 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DB031B961B338C3700417713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB031B981B338C3700417713 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DB031B9B1B338C3700417713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DB031BA11B338C3700417713 /* Sparq CalendarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sparq CalendarTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB031BA61B338C3700417713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparq_CalendarTests.swift; sourceTree = "<group>"; };
+		DB15D4711B545CE600CA2A63 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
+		DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DB15D4791B599D3300CA2A63 /* Class.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Class.xcdatamodel; sourceTree = "<group>"; };
+		DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		DB2EF47C1B66DE3700F78317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DB7BE6631B5D590300F2725F /* Holidays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holidays.swift; sourceTree = "<group>"; };
+		DB7BE6651B5D590400F2725F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DB7BE66B1B5D590400F2725F /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		DBCE7F601B6589320008D0BF /* Sparq Calendar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sparq Calendar-Bridging-Header.h"; sourceTree = "<group>"; };
+		DBCE7F611B6589320008D0BF /* Sparq CalendarTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sparq CalendarTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		DBCE7F621B6589330008D0BF /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = fmdb/src/fmdb/FMDB.h; sourceTree = "<group>"; };
+		DBCE7F631B6589330008D0BF /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = fmdb/src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		DBCE7F641B6589330008D0BF /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = fmdb/src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
+		DBCE7F651B6589330008D0BF /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = fmdb/src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		DBCE7F661B6589330008D0BF /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = fmdb/src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
+		DBCE7F671B6589330008D0BF /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = fmdb/src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		DBCE7F681B6589330008D0BF /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = fmdb/src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		DBCE7F691B6589330008D0BF /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = fmdb/src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		DBCE7F6A1B6589330008D0BF /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = fmdb/src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		DBCE7F6B1B6589330008D0BF /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = fmdb/src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
+		DBCE7F6C1B6589330008D0BF /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = fmdb/src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
+		DBCE7F771B65A0230008D0BF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsqlite3.dylib; sourceTree = "<group>"; };
+		DBE50E021B66AADF00E43954 /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
+		DBF2F4F01B5F065D00B2F44F /* ClassMeetings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassMeetings.swift; sourceTree = "<group>"; };
+		DBF2F4F31B5FE56300B2F44F /* Days.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Days.swift; path = ../Days.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBCE7F781B65A0230008D0BF /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBCE7F791B65A0230008D0BF /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,9 +141,20 @@
 		DB031B8E1B338C3700417713 /* Sparq Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				DBE094881B4AE6FC00E76F17 /* utils */,
+				DBF2F4F01B5F065D00B2F44F /* ClassMeetings.swift */,
+				DBE50E021B66AADF00E43954 /* ClassTableViewCell.swift */,
+				DBF2F4F31B5FE56300B2F44F /* Days.swift */,
+				DB7BE66B1B5D590400F2725F /* Schedule.swift */,
+				DB7BE6651B5D590400F2725F /* User.swift */,
+				DB7BE6631B5D590300F2725F /* Holidays.swift */,
 				DB031B911B338C3700417713 /* AppDelegate.swift */,
+				DB2EF47B1B66DE3700F78317 /* Main.storyboard */,
+				DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */,
+				DB15D4781B599D3300CA2A63 /* Class.xcdatamodeld */,
 				DB031B931B338C3700417713 /* ViewController.swift */,
-				DB031B951B338C3700417713 /* Main.storyboard */,
+				DB15D4711B545CE600CA2A63 /* RestApiManager.swift */,
+				DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */,
 				DB031B981B338C3700417713 /* Images.xcassets */,
 				DB031B9A1B338C3700417713 /* LaunchScreen.xib */,
 				DB031B8F1B338C3700417713 /* Supporting Files */,
@@ -90,6 +165,18 @@
 		DB031B8F1B338C3700417713 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DBCE7F771B65A0230008D0BF /* libsqlite3.dylib */,
+				DBCE7F621B6589330008D0BF /* FMDB.h */,
+				DBCE7F631B6589330008D0BF /* FMDatabase.h */,
+				DBCE7F641B6589330008D0BF /* FMDatabase.m */,
+				DBCE7F651B6589330008D0BF /* FMResultSet.h */,
+				DBCE7F661B6589330008D0BF /* FMResultSet.m */,
+				DBCE7F671B6589330008D0BF /* FMDatabaseQueue.h */,
+				DBCE7F681B6589330008D0BF /* FMDatabaseQueue.m */,
+				DBCE7F691B6589330008D0BF /* FMDatabaseAdditions.h */,
+				DBCE7F6A1B6589330008D0BF /* FMDatabaseAdditions.m */,
+				DBCE7F6B1B6589330008D0BF /* FMDatabasePool.h */,
+				DBCE7F6C1B6589330008D0BF /* FMDatabasePool.m */,
 				DB031B901B338C3700417713 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -110,6 +197,16 @@
 				DB031BA61B338C3700417713 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DBE094881B4AE6FC00E76F17 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */,
+				DBCE7F601B6589320008D0BF /* Sparq Calendar-Bridging-Header.h */,
+				DBCE7F611B6589320008D0BF /* Sparq CalendarTests-Bridging-Header.h */,
+			);
+			name = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,9 +289,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB031B971B338C3700417713 /* Main.storyboard in Resources */,
-				DB031B9C1B338C3700417713 /* LaunchScreen.xib in Resources */,
 				DB031B991B338C3700417713 /* Images.xcassets in Resources */,
+				DB2EF47D1B66DE3700F78317 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +298,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF2F4F71B600F6000B2F44F /* LaunchScreen.xib in Resources */,
+				DB2EF47E1B66DE3700F78317 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +310,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF2F4F11B5F065D00B2F44F /* ClassMeetings.swift in Sources */,
+				DBE50E031B66AADF00E43954 /* ClassTableViewCell.swift in Sources */,
+				DB15D47A1B599D3300CA2A63 /* Class.xcdatamodeld in Sources */,
+				DBCE7F751B6589330008D0BF /* FMDatabasePool.m in Sources */,
+				DB15D4771B56AB5A00CA2A63 /* LoginViewController.swift in Sources */,
+				DBCE7F6D1B6589330008D0BF /* FMDatabase.m in Sources */,
+				DB2280691B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */,
+				DBCE7F731B6589330008D0BF /* FMDatabaseAdditions.m in Sources */,
+				DBCE7F6F1B6589330008D0BF /* FMResultSet.m in Sources */,
 				DB031B941B338C3700417713 /* ViewController.swift in Sources */,
+				DB15D4721B545CE600CA2A63 /* RestApiManager.swift in Sources */,
+				DB7BE6661B5D590400F2725F /* User.swift in Sources */,
+				DBF2F4F41B5FE56300B2F44F /* Days.swift in Sources */,
+				DB7BE66C1B5D590400F2725F /* Schedule.swift in Sources */,
+				DB2280761B51DC4C0023D10F /* ScheduleViewController.swift in Sources */,
+				DBCE7F711B6589330008D0BF /* FMDatabaseQueue.m in Sources */,
+				DB7BE6641B5D590300F2725F /* Holidays.swift in Sources */,
 				DB031B921B338C3700417713 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,7 +335,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF2F4EB1B5EB61400B2F44F /* ViewController.swift in Sources */,
+				DBF2F4EC1B5EB61600B2F44F /* RestApiManager.swift in Sources */,
+				DBA38C121B5D9DCC00CC09DC /* AppDelegate.swift in Sources */,
+				DB2280771B51DC4C0023D10F /* ScheduleViewController.swift in Sources */,
+				DBF2F4F51B5FE56300B2F44F /* Days.swift in Sources */,
 				DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */,
+				DBF2F4E31B5EB5ED00B2F44F /* Schedule.swift in Sources */,
+				DBE50E041B66AADF00E43954 /* ClassTableViewCell.swift in Sources */,
+				DB22806A1B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */,
+				DBF2F4EA1B5EB61000B2F44F /* Class.xcdatamodeld in Sources */,
+				DBF2F4E71B5EB5FB00B2F44F /* Holidays.swift in Sources */,
+				DBF2F4F21B5F065D00B2F44F /* ClassMeetings.swift in Sources */,
+				DBCE7F701B6589330008D0BF /* FMResultSet.m in Sources */,
+				DBF2F4E91B5EB60900B2F44F /* LoginViewController.swift in Sources */,
+				DBCE7F741B6589330008D0BF /* FMDatabaseAdditions.m in Sources */,
+				DBF2F4E61B5EB5F800B2F44F /* User.swift in Sources */,
+				DBCE7F761B6589330008D0BF /* FMDatabasePool.m in Sources */,
+				DBCE7F6E1B6589330008D0BF /* FMDatabase.m in Sources */,
+				DBCE7F721B6589330008D0BF /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,20 +368,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DB031B951B338C3700417713 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DB031B961B338C3700417713 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DB031B9A1B338C3700417713 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				DB031B9B1B338C3700417713 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		DB2EF47B1B66DE3700F78317 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB2EF47C1B66DE3700F78317 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -342,9 +474,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sparq",
+					Calendar,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq Calendar-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -352,9 +492,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sparq",
+					Calendar,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq Calendar-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};
@@ -362,6 +510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -372,7 +521,14 @@
 				);
 				INFOPLIST_FILE = "Sparq CalendarTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sparq",
+					Calendar,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq CalendarTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sparq Calendar.app/Sparq Calendar";
 			};
 			name = Debug;
@@ -381,13 +537,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Sparq CalendarTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Sparq",
+					Calendar,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq CalendarTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sparq Calendar.app/Sparq Calendar";
 			};
 			name = Release;
@@ -423,6 +586,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DB15D4781B599D3300CA2A63 /* Class.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DB15D4791B599D3300CA2A63 /* Class.xcdatamodel */,
+			);
+			currentVersion = DB15D4791B599D3300CA2A63 /* Class.xcdatamodel */;
+			path = Class.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DB031B841B338C3700417713 /* Project object */;
 }

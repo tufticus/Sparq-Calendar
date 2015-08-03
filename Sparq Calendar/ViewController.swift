@@ -8,24 +8,25 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let gl = CAGradientLayer()
-
-    @IBOutlet weak var errorText: UILabel!
-    @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var troubleButton: UIButton!
     
+    var tableView:UITableView?
+    var items = NSMutableArray();
     
+    let people = [
+    ("Abraham","Mexico"),
+    ("Andrew","Texas")
+    ]
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        }
     
-        errorText.hidden = true
+    override func viewWillAppear(animated: Bool) {
         
         // background setup
         // #3DFCBC
@@ -38,34 +39,35 @@ class ViewController: UIViewController {
         
         gl.colors = [left, right]
         gl.locations = [0.0,1.0]
-    }
 
-    @IBAction func loginPressed(sender: AnyObject) {
         
-        let username = usernameField.text
-        let password = passwordField.text
         
-        if username != nil && !username.isEmpty {
-            
-        } else {
-            
-            return
-        }
+        let frame:CGRect = CGRect(x:0, y:100, width:self.view.frame.width, height:self.view.frame.height-100)
+        self.tableView = UITableView(frame: frame)
+        self.tableView?.dataSource = self
+        self.tableView?.delegate = self
+        self.view.addSubview(self.tableView!)
         
-        if password != nil && !password.isEmpty {
-            
-        } else {
-            
-            return
-        }
-        
-        // make login call
     }
-
-    @IBAction func troublePressed(sender: AnyObject) {
-        
-        UIApplication.sharedApplication().openURL(NSURL(string:"http://www.sparqcalendar.com/recover")!)
+    
+    // how many sections are in the table?
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1;
     }
-
+    
+    // how many sections are in the table?
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count; // TODO number of Periods
+    }
+    
+    // what is the cell content?
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = UITableViewCell()
+        
+        var (name,location) = people[indexPath.row]
+        
+        
+        return cell
+    }
+    
 }
-
