@@ -10,7 +10,10 @@ import UIKit
 import Foundation
 
 var today = NSDate()
+var dayNumber = 0
 
+var notificationTimer: NSTimer?
+var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
 // this is the delegate
 class ScheduleViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
@@ -42,8 +45,19 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         
 //        self.classesTableView.registerClass(ClassTableViewCell.self, forCellReuseIdentifier: "Cell")
 //        self.classesTableView.delegate = self\
-        self.tblClasses.reloadData()
+//        self.tblClasses.reloadData()
         
+        
+        if schedule.version == -1 || days.count <= 0 {
+            loadScheduleDaysAndHolidays()
+        }
+        
+        loadTableViewForDate(NSDate())
+        
+//        let interval = 
+//        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self,
+//            selector: "notificationTask", userInfo: nil, repeats: true)
+        startTimer()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,12 +67,34 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         timeFormatter.timeZone = NSTimeZone.localTimeZone()
         todFormatter.dateFormat = "h:mm a"
         todFormatter.timeZone = NSTimeZone.localTimeZone()
+    }
+    
+    func getDayOfSchedule(now: NSDate) -> Int {
         
-        if schedule.version == -1 || days.count <= 0 {
-            loadScheduleDaysAndHolidays()
+        let skip = countHolidays(schedule.startDate, stop: now)
+        
+        let cal = NSCalendar.currentCalendar()
+        
+        let components = cal.components(NSCalendarUnit.CalendarUnitDay, fromDate: schedule.startDate, toDate: now, options: nil)
+        let daysBetween = components.day
+        let startComp = cal.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: schedule.startDate)
+        let startWeekday = startComp.weekday
+        let stopComp = cal.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: now)
+        let stopWeekeday = stopComp.weekday
+        
+        if stopComp.weekday == 1 || stopComp.weekday == 7 {
+            // load view for weekend
+            
+            return 0
         }
         
-        loadTableViewForDate(today)
+        println("days: " + String(daysBetween))
+        var weeks = Int(floor(Double(daysBetween) / 7.0))
+        //        var remainder = ((daysBetween) % 7)
+        if stopWeekeday < startWeekday { // add another weekend if wraps around a weekend.
+            weeks++
+        }
+        return ((daysBetween - skip - 2 * weeks) % days.count) + 1 // % is 0-ordinal
     }
     
     func loadTableViewForDate(date:NSDate) {
@@ -74,46 +110,54 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             return
         }
         
-        let skip = countHolidays(schedule.startDate, stop: date)
+        dayNumber = getDayOfSchedule(date)
         
-        let cal = NSCalendar.currentCalendar()
-        
-        let components = cal.components(NSCalendarUnit.CalendarUnitWeekdayOrdinal|NSCalendarUnit.CalendarUnitDay, fromDate: schedule.startDate, toDate: date, options: nil)
-        println("days: " + String(components.day))
-        var weeks = Int(floor(Double(components.day) / 7.0))
-        var remainder = (components.day % 7)
-        var day = (components.day - skip - 2 * weeks) % days.count
-
-
-        let sparqDB = FMDatabase(path: databasePath as String)
-        if sparqDB.open() {
-            var stmt = "SELECT * from Meetings WHERE day = \(day) order by startTime ASC"
-            
-            var results:FMResultSet? = sparqDB.executeQuery(stmt,
-                withArgumentsInArray: nil)
-            
-            while results?.next() == true {
-                var meeting = ClassMeetings()
-                
-                meeting.subject = results!.stringForColumn("subject")
-                meeting.grade = Int(results!.intForColumn("grade"))
-                meeting.room = results!.stringForColumn("room")
-                meeting.startTime = timeFormatter.dateFromString(results!.stringForColumn("startTime"))!
-                meeting.stopTime = timeFormatter.dateFromString(results!.stringForColumn("stopTime"))!
-                meeting.period = Int(results!.intForColumn("period"))
-                meeting.day = day
-                meeting.dayName = days[day-1]
-                meeting.section = Int(results!.intForColumn("section"))
-                meeting.teacherName = results!.stringForColumn("teacherName")
-                meeting.teacherEmail = results!.stringForColumn("teacherEmail")
-                meeting.icon = results!.stringForColumn("icon")
-                
-                classes.append(meeting)
-            }
-            
+        if dayNumber == 0 { // is a weekend
+            return
         }
 
-        tblClasses?.reloadData()
+        classes = getClassesForScheduleDay(dayNumber)
+    }
+    
+    func getClassesForScheduleDay(day: Int) -> [ClassMeetings] {
+        var m = [ClassMeetings]()
+        
+        if day > 0 {
+        
+            let sparqDB = FMDatabase(path: databasePath as String)
+            if sparqDB.open() {
+                var stmt = "SELECT * from Meetings WHERE day = \(dayNumber) order by startTime ASC"
+                
+                var results:FMResultSet? = sparqDB.executeQuery(stmt,
+                    withArgumentsInArray: nil)
+                
+                classes = [ClassMeetings]()
+                while results?.next() == true {
+                    var meeting = ClassMeetings()
+                    
+                    meeting.subject = results!.stringForColumn("subject")
+                    meeting.grade = Int(results!.intForColumn("grade"))
+                    meeting.room = results!.stringForColumn("room")
+                    meeting.startTimeStr = results!.stringForColumn("startTime")
+                    meeting.startTime = timeFormatter.dateFromString(meeting.startTimeStr)!
+                    meeting.stopTimeStr = results!.stringForColumn("stopTime")
+                    meeting.stopTime = timeFormatter.dateFromString(meeting.stopTimeStr)!
+                    meeting.period = Int(results!.intForColumn("period"))
+                    meeting.day = dayNumber
+                    meeting.dayName = days[dayNumber-1]
+                    meeting.section = Int(results!.intForColumn("section"))
+                    meeting.teacherName = results!.stringForColumn("teacherName")
+                    meeting.teacherEmail = results!.stringForColumn("teacherEmail")
+                    meeting.icon = results!.stringForColumn("icon")
+                    
+                    m.append(meeting)
+                }
+                
+                sparqDB.close()
+            }
+        }
+
+        return m
     }
 
     func loadScheduleDaysAndHolidays() {
@@ -219,6 +263,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             cell.subjectLabel?.text = h
             cell.roomLabel?.text = ""
             cell.timeLabel?.text = ""
+            cell.backgroundColor = UIColor.whiteColor()
         } else {
             let c = classes[indexPath.row]
             // Configure the cell...
@@ -232,11 +277,141 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             cell.subjectLabel?.text = c.subject
             cell.roomLabel?.text = "Room \(c.room)"
             cell.timeLabel?.text = todFormatter.stringFromDate(c.startTime) + " to " + todFormatter.stringFromDate(c.stopTime)
+            
+            let now = timeFormatter.stringFromDate(NSDate())
+            let start = timeFormatter.stringFromDate(c.startTime)
+            let stop = timeFormatter.stringFromDate(c.stopTime)
+            
+            
+            if now >= start && now < stop {
+                cell.backgroundColor = UIColor.whiteColor()
+            } else if now < start {
+                cell.backgroundColor = UIColor.lightGrayColor()
+            } else if now >= stop {
+                cell.backgroundColor = UIColor.darkGrayColor()
+            }
         }
         
         return cell
     }
     
+    func registerBackgroundTask() {
+        backgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler {
+            [unowned self] in
+            self.endBackgroundTask()
+        }
+        assert(backgroundTask != UIBackgroundTaskInvalid)
+    }
+    
+    func endBackgroundTask() {
+        NSLog("Background task ended.")
+        UIApplication.sharedApplication().endBackgroundTask(backgroundTask)
+        backgroundTask = UIBackgroundTaskInvalid
+    }
+    
+    func startTimer() {
+        if let n = notificationTimer {
+            return
+        }
+        
+        notificationTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,
+            target: self,
+            selector: Selector("notificationTask"),
+            userInfo: nil,
+            repeats: false)
+    }
+    
+    
+    func notificationTask() {
+        let now = NSDate()
+        let nowStr = timeFormatter.stringFromDate(now)
+        
+//        switch UIApplication.sharedApplication().applicationState {
+//        case .Active:
+//            break
+//        case .Background:
+//            break
+//        case .Inactive:
+//            break
+//        }
+        
+        var timerInterval = NSTimeInterval(0)
+        var meeting = ClassMeetings()
+        
+        
+        let d = getDayOfSchedule(now)
+        if d == 0 { // weekend, check tomorrow
+            timerInterval = now.beginningOfDay + 1.day - now
+        } else { // find the next class
+            if isDateAHoliday(now) { // check tomorrow
+                timerInterval = now.beginningOfDay + 1.day - now
+            } else {
+                let meetings = getClassesForScheduleDay(d)
+                
+                if meetings[0].startTime > now {    // before classes have started, pick first
+                    meeting = meetings[0]
+                    timerInterval = now.change(hour: meeting.startTime.hour, minute: meeting.startTime.minute + 10.minutes) - now
+                } else if meetings.last.stopTime < now { // after classes have started, check tomorrow
+                    timerInterval = now.beginningOfDay + 1.day - now
+                } else { // during a class, pick next
+                    for (index, m) in enumerate(meetings) {
+                        if m.startTime <= now && m.stopTime > now {
+                            if index == meetings.count - 1 { // last class, pick next
+                                timerInterval = now.beginningOfDay + 1.day - now
+                            } else { // pick a class
+                                meeting = m
+                                timerInterval = now.change(hour: meeting.hour, minute: meeting.minute + 10.minutes) - now
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if meeting.day > 0 { // !nil
+            pushClassNotification(meeting)
+        }
+        
+        
+        notificationTimer = NSTimer.scheduledTimerWithTimeInterval(
+            timerInterval,
+            target: self,
+            selector: Selector("notificationTask"),
+            userInfo: nil,
+            repeats: false)
+    }
+    
+    func pushClassNotification(meeting: ClassMeetings) {
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        
+        var localNotification: UILocalNotification = UILocalNotification()
+        localNotification.alertAction = "Next Class"
+        localNotification.alertBody = meeting.subject + " - room: " + meeting.room + "\n" + todFormatter.stringFromDate(meeting.startTime) + " to " + todFormatter.stringFromDate(meeting.stopTime)
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+    }
+    
+    func isDateAHoliday(date: NSDate) -> Bool {
+        let sparqDB = FMDatabase(path: databasePath as String)
+        
+        if sparqDB.open() {
+            let date = dateFormatter.stringFromDate(date)
+            
+            
+            let stmt = "SELECT COUNT(date) as count FROM Holidays WHERE date = \(date)"
+            let results:FMResultSet? = sparqDB.executeQuery(stmt, withArgumentsInArray: nil)
+            
+            if results?.next() == true {
+                let count = Int(results!.intForColumn("count"))
+                sparqDB.close()
+                
+                return count > 0
+            }
+            
+            sparqDB.close()
+        }
+
+        return false
+    }
     
     /*
     // Override to support conditional editing of the table view.
@@ -282,4 +457,5 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     // Pass the selected object to the new view controller.
     }
     */
+    
 }

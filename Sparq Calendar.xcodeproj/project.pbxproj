@@ -20,6 +20,24 @@
 		DB2280771B51DC4C0023D10F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */; };
 		DB2EF47D1B66DE3700F78317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2EF47B1B66DE3700F78317 /* Main.storyboard */; };
 		DB2EF47E1B66DE3700F78317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB2EF47B1B66DE3700F78317 /* Main.storyboard */; };
+		DB30605B1B6FDA6800052AC0 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30605A1B6FDA6800052AC0 /* StringExtension.swift */; };
+		DB30605C1B6FDA6800052AC0 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30605A1B6FDA6800052AC0 /* StringExtension.swift */; };
+		DB30606B1B7422C300052AC0 /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060631B7422C300052AC0 /* Duration.swift */; };
+		DB30606C1B7422C300052AC0 /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060631B7422C300052AC0 /* Duration.swift */; };
+		DB30606D1B7422C300052AC0 /* Int+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060641B7422C300052AC0 /* Int+Timepiece.swift */; };
+		DB30606E1B7422C300052AC0 /* Int+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060641B7422C300052AC0 /* Int+Timepiece.swift */; };
+		DB30606F1B7422C300052AC0 /* NSCalendar+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060651B7422C300052AC0 /* NSCalendar+Timepiece.swift */; };
+		DB3060701B7422C300052AC0 /* NSCalendar+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060651B7422C300052AC0 /* NSCalendar+Timepiece.swift */; };
+		DB3060711B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060661B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift */; };
+		DB3060721B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060661B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift */; };
+		DB3060731B7422C300052AC0 /* NSDate+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060671B7422C300052AC0 /* NSDate+Timepiece.swift */; };
+		DB3060741B7422C300052AC0 /* NSDate+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060671B7422C300052AC0 /* NSDate+Timepiece.swift */; };
+		DB3060751B7422C300052AC0 /* NSDateComponents+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060681B7422C300052AC0 /* NSDateComponents+Timepiece.swift */; };
+		DB3060761B7422C300052AC0 /* NSDateComponents+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3060681B7422C300052AC0 /* NSDateComponents+Timepiece.swift */; };
+		DB3060791B7422C300052AC0 /* String+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30606A1B7422C300052AC0 /* String+Timepiece.swift */; };
+		DB30607A1B7422C300052AC0 /* String+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30606A1B7422C300052AC0 /* String+Timepiece.swift */; };
+		DB30607C1B742F2100052AC0 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30607B1B742F2100052AC0 /* ArrayExtension.swift */; };
+		DB30607D1B742F2100052AC0 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30607B1B742F2100052AC0 /* ArrayExtension.swift */; };
 		DB7BE6641B5D590300F2725F /* Holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6631B5D590300F2725F /* Holidays.swift */; };
 		DB7BE6661B5D590400F2725F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6651B5D590400F2725F /* User.swift */; };
 		DB7BE66C1B5D590400F2725F /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE66B1B5D590400F2725F /* Schedule.swift */; };
@@ -78,6 +96,15 @@
 		DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		DB2EF47C1B66DE3700F78317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DB30605A1B6FDA6800052AC0 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtension.swift; path = ../StringExtension.swift; sourceTree = "<group>"; };
+		DB3060631B7422C300052AC0 /* Duration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Duration.swift; path = Timepeace/Duration.swift; sourceTree = "<group>"; };
+		DB3060641B7422C300052AC0 /* Int+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Int+Timepiece.swift"; path = "Timepeace/Int+Timepiece.swift"; sourceTree = "<group>"; };
+		DB3060651B7422C300052AC0 /* NSCalendar+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSCalendar+Timepiece.swift"; path = "Timepeace/NSCalendar+Timepiece.swift"; sourceTree = "<group>"; };
+		DB3060661B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSCalendarUnit+Timepiece.swift"; path = "Timepeace/NSCalendarUnit+Timepiece.swift"; sourceTree = "<group>"; };
+		DB3060671B7422C300052AC0 /* NSDate+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDate+Timepiece.swift"; path = "Timepeace/NSDate+Timepiece.swift"; sourceTree = "<group>"; };
+		DB3060681B7422C300052AC0 /* NSDateComponents+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDateComponents+Timepiece.swift"; path = "Timepeace/NSDateComponents+Timepiece.swift"; sourceTree = "<group>"; };
+		DB30606A1B7422C300052AC0 /* String+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Timepiece.swift"; path = "Timepeace/String+Timepiece.swift"; sourceTree = "<group>"; };
+		DB30607B1B742F2100052AC0 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		DB7BE6631B5D590300F2725F /* Holidays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holidays.swift; sourceTree = "<group>"; };
 		DB7BE6651B5D590400F2725F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DB7BE66B1B5D590400F2725F /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -202,6 +229,15 @@
 		DBE094881B4AE6FC00E76F17 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				DB30605A1B6FDA6800052AC0 /* StringExtension.swift */,
+				DB30607B1B742F2100052AC0 /* ArrayExtension.swift */,
+				DB3060631B7422C300052AC0 /* Duration.swift */,
+				DB3060641B7422C300052AC0 /* Int+Timepiece.swift */,
+				DB3060651B7422C300052AC0 /* NSCalendar+Timepiece.swift */,
+				DB3060661B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift */,
+				DB3060681B7422C300052AC0 /* NSDateComponents+Timepiece.swift */,
+				DB3060671B7422C300052AC0 /* NSDate+Timepiece.swift */,
+				DB30606A1B7422C300052AC0 /* String+Timepiece.swift */,
 				DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */,
 				DBCE7F601B6589320008D0BF /* Sparq Calendar-Bridging-Header.h */,
 				DBCE7F611B6589320008D0BF /* Sparq CalendarTests-Bridging-Header.h */,
@@ -258,6 +294,11 @@
 				TargetAttributes = {
 					DB031B8B1B338C3700417713 = {
 						CreatedOnToolsVersion = 6.3.2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					DB031BA01B338C3700417713 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -310,14 +351,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB3060791B7422C300052AC0 /* String+Timepiece.swift in Sources */,
+				DB3060751B7422C300052AC0 /* NSDateComponents+Timepiece.swift in Sources */,
 				DBF2F4F11B5F065D00B2F44F /* ClassMeetings.swift in Sources */,
+				DB30606F1B7422C300052AC0 /* NSCalendar+Timepiece.swift in Sources */,
 				DBE50E031B66AADF00E43954 /* ClassTableViewCell.swift in Sources */,
 				DB15D47A1B599D3300CA2A63 /* Class.xcdatamodeld in Sources */,
+				DB3060711B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift in Sources */,
 				DBCE7F751B6589330008D0BF /* FMDatabasePool.m in Sources */,
+				DB3060731B7422C300052AC0 /* NSDate+Timepiece.swift in Sources */,
 				DB15D4771B56AB5A00CA2A63 /* LoginViewController.swift in Sources */,
 				DBCE7F6D1B6589330008D0BF /* FMDatabase.m in Sources */,
 				DB2280691B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */,
 				DBCE7F731B6589330008D0BF /* FMDatabaseAdditions.m in Sources */,
+				DB30606D1B7422C300052AC0 /* Int+Timepiece.swift in Sources */,
 				DBCE7F6F1B6589330008D0BF /* FMResultSet.m in Sources */,
 				DB031B941B338C3700417713 /* ViewController.swift in Sources */,
 				DB15D4721B545CE600CA2A63 /* RestApiManager.swift in Sources */,
@@ -325,7 +372,10 @@
 				DBF2F4F41B5FE56300B2F44F /* Days.swift in Sources */,
 				DB7BE66C1B5D590400F2725F /* Schedule.swift in Sources */,
 				DB2280761B51DC4C0023D10F /* ScheduleViewController.swift in Sources */,
+				DB30607C1B742F2100052AC0 /* ArrayExtension.swift in Sources */,
 				DBCE7F711B6589330008D0BF /* FMDatabaseQueue.m in Sources */,
+				DB30605B1B6FDA6800052AC0 /* StringExtension.swift in Sources */,
+				DB30606B1B7422C300052AC0 /* Duration.swift in Sources */,
 				DB7BE6641B5D590300F2725F /* Holidays.swift in Sources */,
 				DB031B921B338C3700417713 /* AppDelegate.swift in Sources */,
 			);
@@ -336,18 +386,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF2F4EB1B5EB61400B2F44F /* ViewController.swift in Sources */,
+				DB30606C1B7422C300052AC0 /* Duration.swift in Sources */,
 				DBF2F4EC1B5EB61600B2F44F /* RestApiManager.swift in Sources */,
 				DBA38C121B5D9DCC00CC09DC /* AppDelegate.swift in Sources */,
 				DB2280771B51DC4C0023D10F /* ScheduleViewController.swift in Sources */,
 				DBF2F4F51B5FE56300B2F44F /* Days.swift in Sources */,
 				DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */,
 				DBF2F4E31B5EB5ED00B2F44F /* Schedule.swift in Sources */,
+				DB3060701B7422C300052AC0 /* NSCalendar+Timepiece.swift in Sources */,
 				DBE50E041B66AADF00E43954 /* ClassTableViewCell.swift in Sources */,
 				DB22806A1B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */,
+				DB30607D1B742F2100052AC0 /* ArrayExtension.swift in Sources */,
+				DB3060721B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift in Sources */,
 				DBF2F4EA1B5EB61000B2F44F /* Class.xcdatamodeld in Sources */,
 				DBF2F4E71B5EB5FB00B2F44F /* Holidays.swift in Sources */,
+				DB30606E1B7422C300052AC0 /* Int+Timepiece.swift in Sources */,
+				DB3060761B7422C300052AC0 /* NSDateComponents+Timepiece.swift in Sources */,
+				DB3060741B7422C300052AC0 /* NSDate+Timepiece.swift in Sources */,
 				DBF2F4F21B5F065D00B2F44F /* ClassMeetings.swift in Sources */,
+				DB30605C1B6FDA6800052AC0 /* StringExtension.swift in Sources */,
 				DBCE7F701B6589330008D0BF /* FMResultSet.m in Sources */,
+				DB30607A1B7422C300052AC0 /* String+Timepiece.swift in Sources */,
 				DBF2F4E91B5EB60900B2F44F /* LoginViewController.swift in Sources */,
 				DBCE7F741B6589330008D0BF /* FMDatabaseAdditions.m in Sources */,
 				DBF2F4E61B5EB5F800B2F44F /* User.swift in Sources */,

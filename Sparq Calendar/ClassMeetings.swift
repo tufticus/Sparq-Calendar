@@ -18,7 +18,9 @@ class ClassMeetings {
     var teacherName = ""
     var teacherEmail = ""
     var startTime: NSDate = NSDate()
+    var startTimeStr = ""
     var stopTime: NSDate = NSDate()
+    var stopTimeStr = ""
     var period = 0
     var day = 0
     var dayName = ""
