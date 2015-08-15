@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "Sparq_Calendar.ScheduleViewController.tableView (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ObjectiveC.UITableViewCell:ScheduleViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "classes.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Sparq_Calendar.ScheduleViewController.notificationTask (Sparq_Calendar.ScheduleViewController)() -&gt; ():ScheduleViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "now.beginningOfDay + 1.day">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

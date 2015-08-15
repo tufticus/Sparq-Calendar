@@ -18,6 +18,8 @@ var schedule = Schedule()
 
 var databasePath = ""
 
+var debug = true
+
 
 class LoginViewController: UIViewController, UIApplicationDelegate {
     let gl = CAGradientLayer()
@@ -76,6 +78,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             RestApiManager.sharedInstance.checkVersion(version, onCompletion: { json -> Void in
                 
                 if json["version"] == "current" {
+                    println("saved credentials")
                     self.loginSegue()
                 } else { // grab the schedule again
                     
@@ -102,6 +105,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
                             RestApiManager.sharedInstance.getSchedule(userID, onCompletion: { json -> Void in
                                 
                                 let dayCount = self.processSchedule(json)
+                                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
                                 NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
                                 NSUserDefaults.standardUserDefaults().synchronize()
 
@@ -117,45 +121,45 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             })
         }
         
-            let sparqDB = FMDatabase(path: databasePath as String)
-            
-            if sparqDB == nil {
+        let sparqDB = FMDatabase(path: databasePath as String)
+        
+        if sparqDB == nil {
+            println("Error: \(sparqDB.lastErrorMessage())")
+        }
+        
+        if sparqDB.open() {
+            var sql_stmt = "CREATE TABLE IF NOT EXISTS Users (userID INT, type INT, grade INT, email TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
                 println("Error: \(sparqDB.lastErrorMessage())")
             }
             
-            if sparqDB.open() {
-                var sql_stmt = "CREATE TABLE IF NOT EXISTS Users (userID INT, type INT, grade INT, email TEXT)"
-                if !sparqDB.executeStatements(sql_stmt) {
-                    println("Error: \(sparqDB.lastErrorMessage())")
-                }
-                
-                
-                sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT)"
-                if !sparqDB.executeStatements(sql_stmt) {
-                    println("Error: \(sparqDB.lastErrorMessage())")
-                }
-                
-                
-                sql_stmt = "CREATE TABLE IF NOT EXISTS Days (number INT, name TEXT)"
-                if !sparqDB.executeStatements(sql_stmt) {
-                    println("Error: \(sparqDB.lastErrorMessage())")
-                }
-                
-                
-                sql_stmt = "CREATE TABLE IF NOT EXISTS Meetings (subject TEXT, grade INT, room  TEXT, startTime TEXT, stopTime TEXT, period INT, day INT, section INT, teacherName TEXT, teacherEmail TEXT, icon TEXT)"
-                if !sparqDB.executeStatements(sql_stmt) {
-                    println("Error: \(sparqDB.lastErrorMessage())")
-                }
-                
-                sql_stmt = "CREATE TABLE IF NOT EXISTS Holidays (name TEXT, date TEXT)"
-                if !sparqDB.executeStatements(sql_stmt) {
-                    println("Error: \(sparqDB.lastErrorMessage())")
-                }
-                
-                sparqDB.close()
-            } else {
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
                 println("Error: \(sparqDB.lastErrorMessage())")
-            }            // delete sqlite file to clear data: http://stackoverflow.com/questions/1077810/delete-reset-all-entries-in-core-data
+            }
+            
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Days (number INT, name TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Meetings (subject TEXT, grade INT, room  TEXT, startTime TEXT, stopTime TEXT, period INT, day INT, section INT, teacherName TEXT, teacherEmail TEXT, icon TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Holidays (name TEXT, date TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            sparqDB.close()
+        } else {
+            println("Error: \(sparqDB.lastErrorMessage())")
+        }            // delete sqlite file to clear data: http://stackoverflow.com/questions/1077810/delete-reset-all-entries-in-core-data
             
     }
     
@@ -165,6 +169,8 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
     }
     
     @IBAction func loginPressed(sender: AnyObject) {
+        println("Login button pressed")
+        
         self.errorText.hidden = true;
         
         // hide keyboard
@@ -192,19 +198,24 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             return
         }
         
-        // make login call
-        RestApiManager.sharedInstance.login(username, password: password, onCompletion: { json -> Void in
-            //self.errorText?.hidden = false
-            //self.errorText?.text = String(json["userID"].intValue)
-            
-            let dayCount = self.processSchedule(json)
-            
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
-            NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
-            NSUserDefaults.standardUserDefaults().synchronize()
+        
+        if !NSUserDefaults.standardUserDefaults().boolForKey("hasLoginKey") {
+            // make login call
+            RestApiManager.sharedInstance.login(username, password: password, onCompletion: { json -> Void in
+                //self.errorText?.hidden = false
+                //self.errorText?.text = String(json["userID"].intValue)
+                
+                let dayCount = self.processSchedule(json)
+                
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
+                NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+                NSUserDefaults.standardUserDefaults().synchronize()
 
+                self.loginSegue()
+            })
+        } else {
             self.loginSegue()
-        })
+        }
     }
     
     func processSchedule(json: JSON) -> Int {
@@ -227,6 +238,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             println("can't open DB")
         }
         
+        println("Inserting User")
         var stmt = "INSERT INTO Users (userID, email, grade, type) VALUES "
         stmt += "(\(user.userID), "
         stmt += "'" + user.email + "', "
@@ -250,6 +262,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         schedule.version = json["version"].intValue
         
         // put into DB
+        println("Inserting Schedule")
         stmt = "INSERT INTO Schedules (schoolName, startDate, stopDate, grade, timezone, version) VALUES"
         stmt += "('" + schedule.schoolName + "', "
         stmt += "'" + json["startDate"].stringValue + "', "
@@ -266,7 +279,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             println("Error: \(sparqDB.lastErrorMessage())")
         }
         
-        
+        println("Inserting Meetings")
         for( index, section ) in json["meetings"] {
             stmt  = "INSERT INTO Meetings(subject, grade, room, startTime, stopTime, period, day, section, teacherName, teacherEmail, icon) VALUES("
             stmt += "'" + section["subject"].stringValue + "', "
@@ -291,6 +304,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         }
         
         
+        println("Insert Days")
         var dayCount = 0
         for( index, day ) in json["days"] {
             stmt = "INSERT INTO Days(number, name) VALUES("
@@ -309,6 +323,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             dayCount++
         }
         
+        println("Insert Holidays")
         for( index, holiday ) in json["holidays"] {
             stmt = "INSERT INTO Holidays (name, date) VALUES ("
             
@@ -325,7 +340,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             }
         }
         
-        sparqDB.commit()
+//        sparqDB.commit()
         sparqDB.close()
 
         return dayCount
@@ -337,7 +352,10 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
     }
     
     func loginSegue() {
-        performSegueWithIdentifier("LoginSegue", sender: nil)
+        dispatch_async(dispatch_get_main_queue()) {
+            println("Login Segue at " + timeFormatter.stringFromDate(NSDate()))
+            self.performSegueWithIdentifier("LoginSegue", sender: nil)
+        }
     }
 
     

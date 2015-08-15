@@ -39,6 +39,26 @@ public func < (lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.compare(rhs) == .OrderedAscending
 }
 
+public func << (lhs: NSDate, rhs: NSDate) -> Bool {
+    if lhs.hour > rhs.hour {
+        return false;
+    } else if lhs.hour == rhs.hour {
+        return lhs.minute < rhs.minute
+    } else {
+        return true;
+    }
+}
+
+public func >> (lhs: NSDate, rhs: NSDate) -> Bool {
+    if lhs.hour < rhs.hour {
+        return false;
+    } else if lhs.hour == rhs.hour {
+        return lhs.minute > rhs.minute
+    } else {
+        return true;
+    }
+}
+
 // MARK: -
 
 public extension NSDate {

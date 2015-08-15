@@ -84,10 +84,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C-DAY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VQU-0I-2So">
+                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C-DAY Monday August 7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VQU-0I-2So">
                             <rect key="frame" x="0.0" y="64" width="768" height="82"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="68"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="65"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -135,6 +135,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Ucr-Yl-CtR"/>
                     <connections>
+                        <outlet property="dayLabel" destination="VQU-0I-2So" id="XMj-BE-qy4"/>
                         <outlet property="tblClasses" destination="aXK-n5-hIx" id="Rbt-mq-eEZ"/>
                     </connections>
                 </tableViewController>

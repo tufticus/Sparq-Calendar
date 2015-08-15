@@ -14,6 +14,7 @@ public extension String {
     func dateFromFormat(format: String) -> NSDate? {
         let formatter = NSDateFormatter()
         formatter.dateFormat = format
+        formatter.timeZone = NSTimeZone.localTimeZone()
         return formatter.dateFromString(self)
     }
 }

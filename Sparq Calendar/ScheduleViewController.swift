@@ -1,10 +1,4 @@
-//
-//  ClassTableViewController.swift
-//  Sparq Calendar
-//
-//  Created by Good Shepherd on 7/11/15.
-//  Copyright (c) 2015 Sparq Calendar. All rights reserved.
-//
+
 
 import UIKit
 import Foundation
@@ -14,6 +8,7 @@ var dayNumber = 0
 
 var notificationTimer: NSTimer?
 var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+var titleDateFormatter = NSDateFormatter()
 
 // this is the delegate
 class ScheduleViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
@@ -24,11 +19,13 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     
     @IBOutlet var tblClasses: UITableView!
     
+    @IBOutlet weak var dayLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        println("did load " + todFormatter.stringFromDate(NSDate()))
         
         
         // background setup
@@ -52,7 +49,15 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             loadScheduleDaysAndHolidays()
         }
         
-        loadTableViewForDate(NSDate())
+        
+        if debug {
+            loadTableViewForDate("2015-08-14 12:00:00".dateFromFormat("yyyy-MM-dd HH:mm:ss")!)
+        } else {
+            loadTableViewForDate(NSDate())
+        }
+        
+        println("loaded table " + todFormatter.stringFromDate(NSDate()))
+
         
 //        let interval = 
 //        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self,
@@ -61,12 +66,20 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     }
     
     override func viewWillAppear(animated: Bool) {
+        println("will appear " + todFormatter.stringFromDate(NSDate()))
+        
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = NSTimeZone.localTimeZone()
         timeFormatter.dateFormat = "HH:mm:ss"
         timeFormatter.timeZone = NSTimeZone.localTimeZone()
         todFormatter.dateFormat = "h:mm a"
         todFormatter.timeZone = NSTimeZone.localTimeZone()
+        titleDateFormatter.dateFormat = "EEEE MMM d"
+        titleDateFormatter.timeZone = NSTimeZone.localTimeZone()
+        
+    
+        dayLabel.hidden = true
+        
     }
     
     func getDayOfSchedule(now: NSDate) -> Int {
@@ -88,7 +101,6 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             return 0
         }
         
-        println("days: " + String(daysBetween))
         var weeks = Int(floor(Double(daysBetween) / 7.0))
         //        var remainder = ((daysBetween) % 7)
         if stopWeekeday < startWeekday { // add another weekend if wraps around a weekend.
@@ -101,6 +113,8 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         if today != date {
             today = date
         }
+        
+        println("Loading tableView for " + dateFormatter.stringFromDate(today) + " " + timeFormatter.stringFromDate(today))
         
         let holiday = dateFormatter.stringFromDate(today)
         
@@ -117,6 +131,11 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         }
 
         classes = getClassesForScheduleDay(dayNumber)
+        
+        self.title = days[dayNumber-1] + "-Day " + titleDateFormatter.stringFromDate(today)
+        
+        
+        tableView.reloadData()
     }
     
     func getClassesForScheduleDay(day: Int) -> [ClassMeetings] {
@@ -191,7 +210,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 days.append(day.name)
             }
             
-            stmt = "SELECT * FROM Holidays WHERE date >= \(schedule.startDate) AND date <= \(schedule.stopDate) order by date ASC"
+            stmt = "SELECT * FROM Holidays WHERE date >= " + dateFormatter.stringFromDate(schedule.startDate) + " AND date <= " + dateFormatter.stringFromDate(schedule.stopDate) + " order by date ASC"
             results = sparqDB.executeQuery(stmt, withArgumentsInArray: nil)
             
             while results?.next() == true {
@@ -278,7 +297,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             cell.roomLabel?.text = "Room \(c.room)"
             cell.timeLabel?.text = todFormatter.stringFromDate(c.startTime) + " to " + todFormatter.stringFromDate(c.stopTime)
             
-            let now = timeFormatter.stringFromDate(NSDate())
+            let now = timeFormatter.stringFromDate(today)
             let start = timeFormatter.stringFromDate(c.startTime)
             let stop = timeFormatter.stringFromDate(c.stopTime)
             
@@ -314,71 +333,74 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             return
         }
         
-        notificationTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,
-            target: self,
-            selector: Selector("notificationTask"),
-            userInfo: nil,
-            repeats: false)
+        notificationTask()
     }
     
     
     func notificationTask() {
-        let now = NSDate()
-        let nowStr = timeFormatter.stringFromDate(now)
-        
-//        switch UIApplication.sharedApplication().applicationState {
-//        case .Active:
-//            break
-//        case .Background:
-//            break
-//        case .Inactive:
-//            break
-//        }
-        
-        var timerInterval = NSTimeInterval(0)
-        var meeting = ClassMeetings()
-        
-        
-        let d = getDayOfSchedule(now)
-        if d == 0 { // weekend, check tomorrow
-            timerInterval = now.beginningOfDay + 1.day - now
-        } else { // find the next class
-            if isDateAHoliday(now) { // check tomorrow
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+            
+            var now = NSDate()
+            if debug {
+                now = today
+            }
+            let nowStr = timeFormatter.stringFromDate(now)
+            
+    //        switch UIApplication.sharedApplication().applicationState {
+    //        case .Active:
+    //            breaknotifi
+    //        case .Background:
+    //            break
+    //        case .Inactive:
+    //            break
+    //        }
+            
+            var timerInterval = NSTimeInterval(0)
+            var meeting = ClassMeetings()
+            
+            
+            let d = self.getDayOfSchedule(now)
+            if d == 0 { // weekend, check tomorrow
                 timerInterval = now.beginningOfDay + 1.day - now
-            } else {
-                let meetings = getClassesForScheduleDay(d)
-                
-                if meetings[0].startTime > now {    // before classes have started, pick first
-                    meeting = meetings[0]
-                    timerInterval = now.change(hour: meeting.startTime.hour, minute: meeting.startTime.minute + 10.minutes) - now
-                } else if meetings.last.stopTime < now { // after classes have started, check tomorrow
+            } else { // find the next class
+                if self.isDateAHoliday(now) { // check tomorrow
                     timerInterval = now.beginningOfDay + 1.day - now
-                } else { // during a class, pick next
-                    for (index, m) in enumerate(meetings) {
-                        if m.startTime <= now && m.stopTime > now {
-                            if index == meetings.count - 1 { // last class, pick next
-                                timerInterval = now.beginningOfDay + 1.day - now
-                            } else { // pick a class
-                                meeting = m
-                                timerInterval = now.change(hour: meeting.hour, minute: meeting.minute + 10.minutes) - now
+                } else {
+                    let meetings = self.getClassesForScheduleDay(d)
+                    
+                    if meetings[0].startTime >> now {    // before classes have started, pick first
+                        meeting = meetings[0]
+                        timerInterval = now.change(hour: meeting.startTime.hour, minute: (meeting.startTime.minute + 10)) - now
+                    } else if meetings.last.stopTime << now { // after classes have started, check tomorrow
+                        timerInterval = now.beginningOfDay + 1.day - now
+                    } else { // during a class, pick next
+                        for (index, m) in enumerate(meetings) {
+                            if !(m.startTime >> now) && m.stopTime >> now {
+                                if index == meetings.count - 1 { // last class, pick next
+                                    timerInterval = now.beginningOfDay + 1.day - now
+                                } else { // pick a class
+                                    meeting = m
+                                    timerInterval = now.change(hour: meeting.startTime.hour, minute: (meeting.startTime.minute + 10)) - now
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        
-        if meeting.day > 0 { // !nil
-            pushClassNotification(meeting)
-        }
-        
-        
-        notificationTimer = NSTimer.scheduledTimerWithTimeInterval(
-            timerInterval,
-            target: self,
-            selector: Selector("notificationTask"),
-            userInfo: nil,
-            repeats: false)
+            
+            if meeting.day > 0 { // !nil
+                self.pushClassNotification(meeting)
+            }
+            
+            
+            notificationTimer = NSTimer.scheduledTimerWithTimeInterval(
+                timerInterval,
+                target: self,
+                selector: Selector("notificationTask"),
+                userInfo: nil,
+                repeats: false)
+            
+        })
     }
     
     func pushClassNotification(meeting: ClassMeetings) {
