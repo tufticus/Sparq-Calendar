@@ -43,12 +43,6 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SPARQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVu-E1-0lg">
-                                <rect key="frame" x="291" y="72" width="196" height="72"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lkj-Jn-tTK">
                                 <rect key="frame" x="471" y="963" width="297" height="61"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -59,6 +53,12 @@
                                     <action selector="troublePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vsm-ti-FFk"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sparq" translatesAutoresizingMaskIntoConstraints="NO" id="0p9-iY-Zcr">
+                                <rect key="frame" x="256" y="130" width="257" height="344"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Brt-3w-beG">
+                                <rect key="frame" x="585" y="628" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.60614263913580047" green="1" blue="0.94681490267542823" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -67,6 +67,7 @@
                         <outlet property="errorText" destination="tlc-eG-kNR" id="BYu-BP-SWN"/>
                         <outlet property="loginButton" destination="UbS-ET-s6e" id="Dgp-Ok-A2l"/>
                         <outlet property="passwordField" destination="Gwu-7a-Sxi" id="hbF-4b-5Kx"/>
+                        <outlet property="progress" destination="Brt-3w-beG" id="fUz-ep-WpM"/>
                         <outlet property="troubleButton" destination="Lkj-Jn-tTK" id="ANS-vz-dFb"/>
                         <outlet property="usernameField" destination="MKK-Vm-7iz" id="dSW-xY-byO"/>
                         <segue destination="7SR-Uf-mQL" kind="push" identifier="LoginSegue" id="JFK-H4-4aa"/>
@@ -74,7 +75,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1402" y="439"/>
+            <point key="canvasLocation" x="1378" y="422"/>
         </scene>
         <!--Schedule View Controller-->
         <scene sceneID="0Sc-ZN-Krg">
@@ -162,6 +163,9 @@
             <point key="canvasLocation" x="422" y="439"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="sparq" width="257" height="344"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

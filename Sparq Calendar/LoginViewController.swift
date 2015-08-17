@@ -28,6 +28,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var troubleButton: UIButton!
+    @IBOutlet weak var progress: UIActivityIndicatorView!
         
     
     override func viewDidLoad() {
@@ -171,6 +172,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         println("Login button pressed")
         
         self.errorText.hidden = true;
+        showActivityIndicator(true)
         
         // hide keyboard
         self.view.endEditing(true)
@@ -214,6 +216,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         RestApiManager.sharedInstance.login(username, password: password, onCompletion: { json -> Void in
             //self.errorText?.hidden = false
             //self.errorText?.text = String(json["userID"].intValue)
+            self.showActivityIndicator(false)
             
             let dayCount = self.processSchedule(json)
             
@@ -223,6 +226,16 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
 
             self.loginSegue()
         })
+    }
+    
+    func showActivityIndicator(show: Bool) {
+        if show {
+            self.progress.hidden = false
+            self.progress.startAnimating()
+        } else {
+            self.progress.stopAnimating()
+            self.progress.hidden = true
+        }
     }
     
     func processSchedule(json: JSON) -> Int {
@@ -369,7 +382,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         timeFormatter.dateFormat = "HH:mm:ss"
         todFormatter.dateFormat = "h:mm a"
-        
+        showActivityIndicator(false)
         
         // background setup
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)

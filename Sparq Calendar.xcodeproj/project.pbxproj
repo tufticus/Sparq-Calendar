@@ -38,6 +38,7 @@
 		DB30607A1B7422C300052AC0 /* String+Timepiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30606A1B7422C300052AC0 /* String+Timepiece.swift */; };
 		DB30607C1B742F2100052AC0 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30607B1B742F2100052AC0 /* ArrayExtension.swift */; };
 		DB30607D1B742F2100052AC0 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30607B1B742F2100052AC0 /* ArrayExtension.swift */; };
+		DB34AF031B8222FC004751F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB031B981B338C3700417713 /* Images.xcassets */; };
 		DB7BE6641B5D590300F2725F /* Holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6631B5D590300F2725F /* Holidays.swift */; };
 		DB7BE6661B5D590400F2725F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6651B5D590400F2725F /* User.swift */; };
 		DB7BE66C1B5D590400F2725F /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE66B1B5D590400F2725F /* Schedule.swift */; };
@@ -339,6 +340,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB34AF031B8222FC004751F0 /* Images.xcassets in Resources */,
 				DBF2F4F71B600F6000B2F44F /* LaunchScreen.xib in Resources */,
 				DB2EF47E1B66DE3700F78317 /* Main.storyboard in Resources */,
 			);
