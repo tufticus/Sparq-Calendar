@@ -76,7 +76,9 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         todFormatter.timeZone = NSTimeZone.localTimeZone()
         titleDateFormatter.dateFormat = "EEEE MMM d"
         titleDateFormatter.timeZone = NSTimeZone.localTimeZone()
+    
         
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
     
         dayLabel.hidden = true
         
@@ -150,7 +152,6 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 var results:FMResultSet? = sparqDB.executeQuery(stmt,
                     withArgumentsInArray: nil)
                 
-                classes = [ClassMeetings]()
                 while results?.next() == true {
                     var meeting = ClassMeetings()
                     
@@ -270,20 +271,30 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         if let h = holidays[dateFormatter.stringFromDate(today)] {
             return 1
         } else {
-            return classes.count
+            if classes.count == 0 {
+                return 1
+            } else {
+                return classes.count
+            }
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ClassTableViewCell
         
-        if let h = holidays[dateFormatter.stringFromDate(today)] {
+        if let h = holidays[dateFormatter.stringFromDate(today)] { // holiday
             cell.subjectImage?.image = UIImage(named: "icn_default") //"icn_holiday")
             cell.subjectLabel?.text = h
             cell.roomLabel?.text = ""
             cell.timeLabel?.text = ""
             cell.backgroundColor = UIColor.whiteColor()
-        } else {
+        } else if classes.count == 0 { // weekend
+            cell.subjectImage?.image = UIImage(named: "icn_default")
+            cell.subjectLabel?.text = "It's the weekend, enjoy!"
+            cell.roomLabel?.text = ""
+            cell.timeLabel?.text = ""
+            cell.backgroundColor = UIColor.whiteColor()
+        } else { // school day
             let c = classes[indexPath.row]
             // Configure the cell...
             

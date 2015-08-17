@@ -5,7 +5,6 @@ import Foundation
 
 
 
-
 var dateFormatter = NSDateFormatter()
 var timeFormatter = NSDateFormatter()
 var todFormatter = NSDateFormatter()
@@ -179,11 +178,17 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         //self.usernameField.resignFirstResponder()
         //self.passwordField.resignFirstResponder()
         
-        let username = usernameField.text
-        let password = passwordField.text
+        var username = usernameField.text
+        var password = passwordField.text
         
         if username != nil && !username.isEmpty {
-            
+            if username.rangeOfString("@") != nil && username.rangeOfString(".") != nil {
+                username = username.lowercaseString
+            } else {
+                self.errorText.hidden = false
+                self.errorText.text = "Not a valid email address"
+                return
+            }
         } else {
             self.errorText.hidden = false
             self.errorText.text = "Enter a username/email"
@@ -191,7 +196,8 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         }
         
         if password != nil && !password.isEmpty {
-            
+          
+//            password = 
         } else {
             self.errorText.hidden = false
             self.errorText.text = "Enter a password"
@@ -199,23 +205,24 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         }
         
         
-        if !NSUserDefaults.standardUserDefaults().boolForKey("hasLoginKey") {
-            // make login call
-            RestApiManager.sharedInstance.login(username, password: password, onCompletion: { json -> Void in
-                //self.errorText?.hidden = false
-                //self.errorText?.text = String(json["userID"].intValue)
-                
-                let dayCount = self.processSchedule(json)
-                
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
-                NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
-                NSUserDefaults.standardUserDefaults().synchronize()
-
-                self.loginSegue()
-            })
-        } else {
-            self.loginSegue()
+        if NSUserDefaults.standardUserDefaults().boolForKey("hasLoginKey") {
+            // CLEAR stored DATA
+            
         }
+        
+        // make login call
+        RestApiManager.sharedInstance.login(username, password: password, onCompletion: { json -> Void in
+            //self.errorText?.hidden = false
+            //self.errorText?.text = String(json["userID"].intValue)
+            
+            let dayCount = self.processSchedule(json)
+            
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
+            NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+            NSUserDefaults.standardUserDefaults().synchronize()
+
+            self.loginSegue()
+        })
     }
     
     func processSchedule(json: JSON) -> Int {
@@ -353,7 +360,6 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
     
     func loginSegue() {
         dispatch_async(dispatch_get_main_queue()) {
-            println("Login Segue at " + timeFormatter.stringFromDate(NSDate()))
             self.performSegueWithIdentifier("LoginSegue", sender: nil)
         }
     }
@@ -366,17 +372,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         
         
         // background setup
-        // #3DFCBC
-        let left = UIColor(red: 61/255.0, green: 252/255.0, blue: 189/255.0, alpha: 1.0)
-        // #1279bd
-        let right = UIColor(red: 18/255.0, green: 121/255.0, blue: 189/255.0, alpha: 1.0).CGColor as CGColorRef
-        
-        // 2
-        gl.frame = self.view.bounds
-        
-        gl.colors = [left, right]
-        gl.locations = [0.0,1.0]
-        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
         
         
         //        let frame:CGRect = CGRect(x:0, y:100, width:self.view.frame.width, height:self.view.frame.height-100)

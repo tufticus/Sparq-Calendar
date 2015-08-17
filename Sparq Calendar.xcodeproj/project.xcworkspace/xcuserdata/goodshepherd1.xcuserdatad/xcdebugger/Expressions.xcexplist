@@ -3,10 +3,16 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Sparq_Calendar.LoginViewController.processSchedule (Sparq_Calendar.LoginViewController)(Sparq_Calendar.JSON) -&gt; Swift.Int:LoginViewController.swift">
+      </ContextState>
+      <ContextState
          contextName = "Sparq_Calendar.ScheduleViewController.tableView (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ObjectiveC.UITableViewCell:ScheduleViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "classes.count">
+            </PersistentString>
+            <PersistentString
+               value = "classes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
