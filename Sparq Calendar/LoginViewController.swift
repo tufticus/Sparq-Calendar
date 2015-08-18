@@ -17,10 +17,10 @@ var schedule = Schedule()
 
 var databasePath = ""
 
-var debug = true
+var debug = false
 
 
-class LoginViewController: UIViewController, UIApplicationDelegate {
+class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDelegate {
     let gl = CAGradientLayer()
     
     @IBOutlet weak var errorText: UILabel!
@@ -34,6 +34,14 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         errorText.hidden = true
+        showActivityIndicator(false)
+
+        usernameField.text = ""
+        usernameField.autocorrectionType = UITextAutocorrectionType.No
+        usernameField.autocapitalizationType = UITextAutocapitalizationType.None
+        passwordField.text = ""
+        passwordField.autocorrectionType = UITextAutocorrectionType.No
+        passwordField.autocapitalizationType = UITextAutocapitalizationType.None
         
         // Do any additional setup after loading the view, typically from a nib.
         let filemgr = NSFileManager.defaultManager()
@@ -45,12 +53,12 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         
         databasePath = docsDir.stringByAppendingPathComponent(
             "sparq.db")
+
         
         let loginStored = NSUserDefaults.standardUserDefaults().boolForKey("hasLoginKey")
         
         // check server version to sync the data
         if loginStored {
-            
             let sparqDB = FMDatabase(path: databasePath as String)
             
             if sparqDB == nil {
@@ -62,11 +70,24 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
                 var stmt = "SELECT version from Schedules LIMIT 1"
                 
                 // put into DB
-                let results:FMResultSet? = sparqDB.executeQuery(stmt,
+                var results:FMResultSet? = sparqDB.executeQuery(stmt,
                     withArgumentsInArray: nil)
                 
                 if results?.next() == true {
                     version = Int(results!.intForColumn("version"))
+                } else {
+                    println("error getting schedules")
+                }
+                
+                
+                stmt = "SELECT email from Users LIMIT 1"
+                
+                // put into DB
+                results = sparqDB.executeQuery(stmt,
+                    withArgumentsInArray: nil)
+                
+                if results?.next() == true {
+                    usernameField.text = results?.stringForColumn("email")
                 } else {
                     println("error getting schedules")
                 }
@@ -81,6 +102,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
                     println("saved credentials")
                     self.loginSegue()
                 } else { // grab the schedule again
+                    self.dropAllTables()
                     
                     let sparqDB = FMDatabase(path: databasePath as String)
                     
@@ -103,8 +125,8 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
                             userID = Int(results!.intForColumn("userID"))
                             
                             RestApiManager.sharedInstance.getSchedule(userID, onCompletion: { json -> Void in
-                                
                                 let dayCount = self.processSchedule(json)
+                                
                                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
                                 NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
                                 NSUserDefaults.standardUserDefaults().synchronize()
@@ -121,46 +143,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             })
         }
         
-        let sparqDB = FMDatabase(path: databasePath as String)
-        
-        if sparqDB == nil {
-            println("Error: \(sparqDB.lastErrorMessage())")
-        }
-        
-        if sparqDB.open() {
-            var sql_stmt = "CREATE TABLE IF NOT EXISTS Users (userID INT, type INT, grade INT, email TEXT)"
-            if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
-            }
-            
-            
-            sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT)"
-            if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
-            }
-            
-            
-            sql_stmt = "CREATE TABLE IF NOT EXISTS Days (number INT, name TEXT)"
-            if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
-            }
-            
-            
-            sql_stmt = "CREATE TABLE IF NOT EXISTS Meetings (subject TEXT, grade INT, room  TEXT, startTime TEXT, stopTime TEXT, period INT, day INT, section INT, teacherName TEXT, teacherEmail TEXT, icon TEXT)"
-            if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
-            }
-            
-            sql_stmt = "CREATE TABLE IF NOT EXISTS Holidays (name TEXT, date TEXT)"
-            if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
-            }
-            
-            sparqDB.close()
-        } else {
-            println("Error: \(sparqDB.lastErrorMessage())")
-        }            // delete sqlite file to clear data: http://stackoverflow.com/questions/1077810/delete-reset-all-entries-in-core-data
-            
+        createTables()
     }
     
     // built in method called when the main view is pressed
@@ -170,6 +153,14 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
     
     @IBAction func loginPressed(sender: AnyObject) {
         println("Login button pressed")
+        
+        // can haz WIFI?
+        if !Reachability.isConnectedToNetwork() {
+            self.errorText.hidden = false
+            self.errorText.text = "Not connected to the internet."
+            return
+        }
+
         
         self.errorText.hidden = true;
         showActivityIndicator(true)
@@ -189,11 +180,13 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
             } else {
                 self.errorText.hidden = false
                 self.errorText.text = "Not a valid email address"
+                self.showActivityIndicator(false)
                 return
             }
         } else {
             self.errorText.hidden = false
             self.errorText.text = "Enter a username/email"
+            self.showActivityIndicator(false)
             return
         }
         
@@ -203,28 +196,39 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         } else {
             self.errorText.hidden = false
             self.errorText.text = "Enter a password"
+            self.showActivityIndicator(false)
             return
         }
         
-        
         if NSUserDefaults.standardUserDefaults().boolForKey("hasLoginKey") {
             // CLEAR stored DATA
+            dropAllTables()
             
+            
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasLoginKey")
+            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "dayCount")
+            NSUserDefaults.standardUserDefaults().synchronize()
+
         }
         
         // make login call
         RestApiManager.sharedInstance.login(username, password: password, onCompletion: { json -> Void in
             //self.errorText?.hidden = false
             //self.errorText?.text = String(json["userID"].intValue)
-            self.showActivityIndicator(false)
             
-            let dayCount = self.processSchedule(json)
-            
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
-            NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            if let error = json["error"].string {
+                self.errorText.text = error
+                self.errorText.hidden = false
+            } else {
+                let dayCount = self.processSchedule(json)
+                
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
+                NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+                NSUserDefaults.standardUserDefaults().synchronize()
 
-            self.loginSegue()
+                self.loginSegue()
+            }
+            self.showActivityIndicator(false)
         })
     }
     
@@ -373,6 +377,8 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
     
     func loginSegue() {
         dispatch_async(dispatch_get_main_queue()) {
+            self.showActivityIndicator(false)
+            self.passwordField.text = ""
             self.performSegueWithIdentifier("LoginSegue", sender: nil)
         }
     }
@@ -394,5 +400,139 @@ class LoginViewController: UIViewController, UIApplicationDelegate {
         //        self.tableView?.delegate = self
         //        self.view.addSubview(self.tableView!)
         
+    }
+    
+    func dropAllTables() { // delete the DB to remove all data
+        if let file = NSFileHandle(forUpdatingAtPath: databasePath) {
+            file.truncateFileAtOffset(0)
+            file.closeFile()
+        } else {
+            println("File open failed")
+        }
+        
+        createTables()
+    }
+    
+    func createTables() {
+        
+        let sparqDB = FMDatabase(path: databasePath as String)
+        
+        if sparqDB == nil {
+            println("Error: \(sparqDB.lastErrorMessage())")
+        }
+        
+        if sparqDB.open() {
+            var sql_stmt = "CREATE TABLE IF NOT EXISTS Users (userID INT, type INT, grade INT, email TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Days (number INT, name TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Meetings (subject TEXT, grade INT, room  TEXT, startTime TEXT, stopTime TEXT, period INT, day INT, section INT, teacherName TEXT, teacherEmail TEXT, icon TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Holidays (name TEXT, date TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            sparqDB.close()
+        } else {
+            println("Error: \(sparqDB.lastErrorMessage())")
+        }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {   //delegate method
+        self.loginPressed(textField)
+        
+        return true
+    }
+    
+    @IBAction func registerPressed(sender: UIButton) {
+        var alert = UIAlertController(title: "Register", message: "Enter email & password", preferredStyle: UIAlertControllerStyle.Alert)
+        var emailTF = UITextField()
+        var pw1TF = UITextField()
+        var pw2TF = UITextField()
+        
+        alert.addAction(UIAlertAction(title: "Register", style: UIAlertActionStyle.Default, handler: { action in
+            var email = String()
+            var pw1 = String()
+            var pw2 = String()
+            
+            if let e = emailTF.text {
+                email = e
+                
+                if email.rangeOfString("@") != nil && email.rangeOfString(".") != nil {
+                    email = email.lowercaseString
+                } else {
+                    alert.message = "Enter your email"
+                    return
+                }
+            }
+            
+            if let pw = pw1TF.text {
+                pw1 = pw
+            } else {
+                alert.message = "Enter a password"
+            }
+            
+            if let pw = pw2TF.text {
+                pw2 = pw
+            } else {
+                alert.message = "Confirm your password"
+            }
+            
+            if pw1 != pw2 {
+                alert.message = "Passwords don't match"
+            }
+            
+            alert.dismissViewControllerAnimated(true, completion: nil)
+            RestApiManager.sharedInstance.registerUser(email, password: pw1, onCompletion: { json -> Void in
+                let dayCount = self.processSchedule(json)
+                
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
+                NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                self.loginSegue()
+                })
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { action in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "Enter email"
+            emailTF = textField
+        })
+        
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "Enter password"
+            textField.secureTextEntry = true
+            pw1TF = textField
+        })
+        
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "Reenter password"
+            textField.secureTextEntry = true
+            pw2TF = textField
+        })
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }

@@ -41,6 +41,15 @@ class RestApiManager: NSObject {
         })
     }
     
+    func registerUser(email: String, password: String, onCompletion: (JSON) -> Void ) {
+        let request = baseURL + "/user"
+        let body = "email=" + email + "&password=" + password
+        
+        makeHTTPPostRequest(request, body: body, onCompletion: {json, error -> Void in
+            onCompletion(json)
+        })
+    }
+    
     func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
         
@@ -55,6 +64,21 @@ class RestApiManager: NSObject {
         task.resume()
     }
     
-    
-    
+    func makeHTTPPostRequest(path: String, body: String, onCompletion: ServiceResponse) {
+        var err: NSError?
+        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+        
+        // Set the method to POST
+        request.HTTPMethod = "POST"
+        
+        // Set the POST body for the request
+        request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            let json:JSON = JSON(data: data)
+            onCompletion(json, err)
+        })
+        task.resume()
+    }
 }

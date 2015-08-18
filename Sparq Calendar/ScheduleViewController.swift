@@ -10,6 +10,11 @@ var notificationTimer: NSTimer?
 var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 var titleDateFormatter = NSDateFormatter()
 
+let lightGrey = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1.0)
+
+let darkGrey = UIColor(red: 214/255.0, green: 214/255.0, blue: 214/255.0, alpha: 1)
+
+
 // this is the delegate
 class ScheduleViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
     let gl = CAGradientLayer()
@@ -18,15 +23,25 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         var dayID = 0
     
     @IBOutlet var tblClasses: UITableView!
-    
     @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var leftArrow: UIImageView!
+    @IBOutlet weak var rightArrow: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        println("did load " + todFormatter.stringFromDate(NSDate()))
-        
+        // add it to the image view;
+        leftArrow.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("leftArrow:")))
+        rightArrow.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("rightArrow:")))
+        dayLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dayLabel:")))
+        dateLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dateLabel:")))
+        // make sure imageView can be interacted with by user
+        leftArrow.userInteractionEnabled = true
+        rightArrow.userInteractionEnabled = true
+        dayLabel.userInteractionEnabled = true
+        dateLabel.userInteractionEnabled = true
         
         // background setup
         // #3DFCBC
@@ -56,9 +71,6 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             loadTableViewForDate(NSDate())
         }
         
-        println("loaded table " + todFormatter.stringFromDate(NSDate()))
-
-        
 //        let interval = 
 //        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self,
 //            selector: "notificationTask", userInfo: nil, repeats: true)
@@ -66,22 +78,19 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     }
     
     override func viewWillAppear(animated: Bool) {
-        println("will appear " + todFormatter.stringFromDate(NSDate()))
-        
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = NSTimeZone.localTimeZone()
         timeFormatter.dateFormat = "HH:mm:ss"
         timeFormatter.timeZone = NSTimeZone.localTimeZone()
         todFormatter.dateFormat = "h:mm a"
         todFormatter.timeZone = NSTimeZone.localTimeZone()
-        titleDateFormatter.dateFormat = "EEEE MMM d"
+        titleDateFormatter.dateFormat = "EEEE d"
         titleDateFormatter.timeZone = NSTimeZone.localTimeZone()
     
+        dayLabel.hidden = false
+        dateLabel.hidden = false
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
-    
-        dayLabel.hidden = true
-        
     }
     
     func getDayOfSchedule(now: NSDate) -> Int {
@@ -131,10 +140,11 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         if dayNumber == 0 { // is a weekend
             return
         }
+        
+        dayLabel.text = days[dayNumber-1] + "-Day"
+        dateLabel.text = today.stringFromFormat("EEEE MMM d")
 
         classes = getClassesForScheduleDay(dayNumber)
-        
-        self.title = days[dayNumber-1] + "-Day " + titleDateFormatter.stringFromDate(today)
         
         
         tableView.reloadData()
@@ -283,17 +293,22 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ClassTableViewCell
         
         if let h = holidays[dateFormatter.stringFromDate(today)] { // holiday
-            cell.subjectImage?.image = UIImage(named: "icn_default") //"icn_holiday")
+            cell.subjectImage?.image = UIImage(named: "icn_holiday") //"icn_holiday")
             cell.subjectLabel?.text = h
             cell.roomLabel?.text = ""
             cell.timeLabel?.text = ""
             cell.backgroundColor = UIColor.whiteColor()
         } else if classes.count == 0 { // weekend
             cell.subjectImage?.image = UIImage(named: "icn_default")
-            cell.subjectLabel?.text = "It's the weekend, enjoy!"
             cell.roomLabel?.text = ""
             cell.timeLabel?.text = ""
-            cell.backgroundColor = UIColor.whiteColor()
+            cell.backgroundColor = darkGrey
+            
+            if today.weekday == 1 || today.weekday == 7 { // weekday
+                cell.subjectLabel?.text = "It's the weekend, enjoy!"
+            } else {
+                cell.subjectLabel?.text = "It's your day off, enjoy!"
+            }
         } else { // school day
             let c = classes[indexPath.row]
             // Configure the cell...
@@ -304,7 +319,17 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 // default image
                 cell.subjectImage?.image = UIImage(named: "icn_default")
             }
-            cell.subjectLabel?.text = c.subject
+            
+            if c.grade == 0 {
+                cell.subjectLabel?.text = c.subject
+            } else {
+                if c.section == 0 {
+                    cell.subjectLabel?.text = c.subject + " \(c.grade)"
+                } else {
+                    cell.subjectLabel?.text = c.subject + " \(c.grade)-\(c.section)"
+                }
+            }
+            
             cell.roomLabel?.text = "Room \(c.room)"
             cell.timeLabel?.text = todFormatter.stringFromDate(c.startTime) + " to " + todFormatter.stringFromDate(c.stopTime)
             
@@ -316,9 +341,9 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             if now >= start && now < stop {
                 cell.backgroundColor = UIColor.whiteColor()
             } else if now < start {
-                cell.backgroundColor = UIColor.lightGrayColor()
+                cell.backgroundColor = lightGrey
             } else if now >= stop {
-                cell.backgroundColor = UIColor.darkGrayColor()
+                cell.backgroundColor = darkGrey
             }
         }
         
@@ -387,10 +412,10 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                     } else { // during a class, pick next
                         for (index, m) in enumerate(meetings) {
                             if !(m.startTime >> now) && m.stopTime >> now {
-                                if index == meetings.count - 1 { // last class, pick next
+                                if index == meetings.count - 1 { // last class, pick next day
                                     timerInterval = now.beginningOfDay + 1.day - now
-                                } else { // pick a class
-                                    meeting = m
+                                } else { // pick the next class
+                                    meeting = meetings[index + 1]
                                     timerInterval = now.change(hour: meeting.startTime.hour, minute: (meeting.startTime.minute + 10)) - now
                                 }
                             }
@@ -419,7 +444,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         
         var localNotification: UILocalNotification = UILocalNotification()
         localNotification.alertAction = "Next Class"
-        localNotification.alertBody = meeting.subject + " - room: " + meeting.room + "\n" + todFormatter.stringFromDate(meeting.startTime) + " to " + todFormatter.stringFromDate(meeting.stopTime)
+        localNotification.alertBody = meeting.dayName + " - Day\n" + meeting.subject + " in " + meeting.room + "\n" + todFormatter.stringFromDate(meeting.startTime) + " to " + todFormatter.stringFromDate(meeting.stopTime)
         UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
     }
     
@@ -446,49 +471,31 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         return false
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the specified item to be editable.
-    return true
+    func leftArrow(gesture: UIGestureRecognizer) {
+        if today.weekday == 2 {
+            loadTableViewForDate(today - 3.day)
+        } else if today.weekday == 1 {
+            loadTableViewForDate(today - 2.day)
+        } else {
+            loadTableViewForDate(today - 1.day)
+        }
     }
-    */
     
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    func rightArrow(gesture: UIGestureRecognizer) {
+        if today.weekday == 6 {
+            loadTableViewForDate(today + 3.day)
+        } else if today.weekday == 7 {
+            loadTableViewForDate(today + 2.day)
+        } else {
+            loadTableViewForDate(today + 1.day)
+        }
     }
+    
+    func dayLabel(gesture: UIGestureRecognizer) {
+        loadTableViewForDate(NSDate())
     }
-    */
     
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
+    func dateLabel(gesture: UIGestureRecognizer) {
+        loadTableViewForDate(NSDate())
     }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the item to be re-orderable.
-    return true
-    }
-    */
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }
