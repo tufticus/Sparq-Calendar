@@ -501,14 +501,21 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             }
             
             alert.dismissViewControllerAnimated(true, completion: nil)
+            
             RestApiManager.sharedInstance.registerUser(email, password: pw1, onCompletion: { json -> Void in
-                let dayCount = self.processSchedule(json)
-                
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
-                NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                
-                self.loginSegue()
+                    if let error = json["error"].string {
+                        self.errorText.text = error
+                        self.errorText.hidden = false
+                    } else {
+                        let dayCount = self.processSchedule(json)
+                        
+                        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
+                        NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        
+                        self.loginSegue()
+                        
+                    }
                 })
         }))
         
