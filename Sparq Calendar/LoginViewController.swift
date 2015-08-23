@@ -462,6 +462,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         return true
     }
     
+    
     @IBAction func registerPressed(sender: UIButton) {
         var alert = UIAlertController(title: "Register", message: "Enter email & password", preferredStyle: UIAlertControllerStyle.Alert)
         var emailTF = UITextField()
@@ -501,11 +502,17 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             }
             
             alert.dismissViewControllerAnimated(true, completion: nil)
+            self.progress.startAnimating()
             
             RestApiManager.sharedInstance.registerUser(email, password: pw1, onCompletion: { json -> Void in
+                    self.progress.stopAnimating()
+                
                     if let error = json["error"].string {
-                        self.errorText.text = error
-                        self.errorText.hidden = false
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.errorText.text = error
+                            self.errorText.hidden = false
+                        }
                     } else {
                         let dayCount = self.processSchedule(json)
                         
@@ -542,4 +549,23 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    override func canPerformUnwindSegueAction(action: Selector, fromViewController: UIViewController, withSender sender: AnyObject) -> Bool {
+        return true
+    }
+    
+    
+    @IBAction func unwindToLogin(sender: UIStoryboardSegue)
+    {
+        println("Logout")
+        dropAllTables()
+        
+        usernameField.text = ""
+        passwordField.text = ""
+        
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasLoginKey")
+        NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "dayCount")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+
 }

@@ -25,8 +25,8 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="o2b-dm-Mtv"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Error" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlc-eG-kNR">
-                                <rect key="frame" x="192" y="551" width="385" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Error" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlc-eG-kNR">
+                                <rect key="frame" x="192" y="530" width="385" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -106,7 +106,6 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="224" sectionHeaderHeight="22" sectionFooterHeight="22" id="aXK-n5-hIx">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="jFs-5V-nb9">
                             <rect key="frame" x="0.0" y="64" width="768" height="108"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -128,6 +127,9 @@
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="knI-dI-Xje">
                                     <rect key="frame" x="172" y="27" width="54" height="54"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="burger" translatesAutoresizingMaskIntoConstraints="NO" id="8UO-ha-Dog">
+                                    <rect key="frame" x="702" y="8" width="58" height="40"/>
                                 </imageView>
                             </subviews>
                         </view>
@@ -179,12 +181,15 @@
                         <outlet property="dayLabel" destination="2Wf-CL-MHs" id="S8O-MA-p3A"/>
                         <outlet property="leftArrow" destination="knI-dI-Xje" id="DDb-za-zhK"/>
                         <outlet property="rightArrow" destination="qrH-FB-bdW" id="3jj-T5-8fX"/>
+                        <outlet property="settingsIcon" destination="8UO-ha-Dog" id="Gnb-aE-CVc"/>
                         <outlet property="tblClasses" destination="aXK-n5-hIx" id="Rbt-mq-eEZ"/>
+                        <segue destination="Ixw-9J-Dhi" kind="unwind" identifier="UnwindToLogin" unwindAction="unwindToLogin:" id="gHe-Wi-v0P"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYA-4y-rdM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Ixw-9J-Dhi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2561" y="414"/>
+            <point key="canvasLocation" x="2563" y="422"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="byu-cA-uC0">
@@ -208,6 +213,7 @@
     <resources>
         <image name="arrow_left" width="36" height="35"/>
         <image name="arrow_right" width="36" height="35"/>
+        <image name="burger" width="76" height="58"/>
         <image name="password" width="36" height="35"/>
         <image name="sparq" width="257" height="344"/>
         <image name="username" width="66" height="76"/>

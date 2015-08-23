@@ -27,6 +27,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var leftArrow: UIImageView!
     @IBOutlet weak var rightArrow: UIImageView!
+    @IBOutlet weak var settingsIcon: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,28 +38,13 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         rightArrow.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("rightArrow:")))
         dayLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dayLabel:")))
         dateLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dateLabel:")))
+        settingsIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("settingsClicked:")))
         // make sure imageView can be interacted with by user
         leftArrow.userInteractionEnabled = true
         rightArrow.userInteractionEnabled = true
         dayLabel.userInteractionEnabled = true
         dateLabel.userInteractionEnabled = true
-        
-        // background setup
-        // #3DFCBC
-        let left = UIColor(red: 61/255.0, green: 252/255.0, blue: 189/255.0, alpha: 1.0)
-        // #1279bd
-        let right = UIColor(red: 18/255.0, green: 121/255.0, blue: 189/255.0, alpha: 1.0).CGColor as CGColorRef
-        
-        // 2
-        gl.frame = self.view.bounds
-        
-        gl.colors = [left, right]
-        gl.locations = [0.0,1.0]
-        
-//        self.classesTableView.registerClass(ClassTableViewCell.self, forCellReuseIdentifier: "Cell")
-//        self.classesTableView.delegate = self\
-//        self.tblClasses.reloadData()
-        
+        settingsIcon.userInteractionEnabled = true
         
         if schedule.version == -1 || days.count <= 0 {
             loadScheduleDaysAndHolidays()
@@ -71,9 +57,6 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             loadTableViewForDate(NSDate())
         }
         
-//        let interval = 
-//        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self,
-//            selector: "notificationTask", userInfo: nil, repeats: true)
         startTimer()
     }
     
@@ -89,6 +72,11 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     
         dayLabel.hidden = false
         dateLabel.hidden = false
+        
+//        self.navigationController?.navigationBarHidden = true
+        self.navigationItem.hidesBackButton = true
+//        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
+//        navigationItem.leftBarButtonItem = backButton
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
     }
@@ -124,6 +112,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         if today != date {
             today = date
         }
+        classes = [ClassMeetings]()
         
         println("Loading tableView for " + dateFormatter.stringFromDate(today) + " " + timeFormatter.stringFromDate(today))
         
@@ -137,12 +126,19 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         
         dayNumber = getDayOfSchedule(date)
         
+        
+        if today.weekday == 1 || today.weekday == 7 {
+            dayLabel.text = "Weekend"
+        } else {
+            dayLabel.text = days[dayNumber-1] + "-Day"
+        }
+        dateLabel.text = today.stringFromFormat("EEEE MMM d")
+        
+        
+        
         if dayNumber == 0 { // is a weekend
             return
         }
-        
-        dayLabel.text = days[dayNumber-1] + "-Day"
-        dateLabel.text = today.stringFromFormat("EEEE MMM d")
 
         classes = getClassesForScheduleDay(dayNumber)
         
@@ -338,11 +334,13 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             let stop = timeFormatter.stringFromDate(c.stopTime)
             
             
-            if now >= start && now < stop {
+            if now >= start && now < stop { // class is now
                 cell.backgroundColor = UIColor.whiteColor()
-            } else if now < start {
+                
+                tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: false)
+            } else if now < start { // class in the future
                 cell.backgroundColor = lightGrey
-            } else if now >= stop {
+            } else if now >= stop { // class in the past
                 cell.backgroundColor = darkGrey
             }
         }
@@ -471,6 +469,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         return false
     }
     
+    // weekday 1 = Sunday, weekeday 7 = Saturday
     func leftArrow(gesture: UIGestureRecognizer) {
         if today.weekday == 2 {
             loadTableViewForDate(today - 3.day)
@@ -497,5 +496,26 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     
     func dateLabel(gesture: UIGestureRecognizer) {
         loadTableViewForDate(NSDate())
+    }
+    
+    func settingsClicked(gesture: UIGestureRecognizer) {
+        let logoutDialog: UIAlertController = UIAlertController(title: "Logout?", message: "Do you want to logout of your calendar?", preferredStyle: .Alert)
+        
+        //Create and add the Cancel action
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+            //Do some stuff
+            logoutDialog.dismissViewControllerAnimated(true, completion: nil)
+        }
+        logoutDialog.addAction(cancelAction)
+        
+        //Create and an option action
+        let nextAction: UIAlertAction = UIAlertAction(title: "Logout", style: .Default) { action -> Void in
+            //Do some other stuff
+            self.performSegueWithIdentifier("UnwindToLogin", sender: self)
+            
+        }
+        logoutDialog.addAction(nextAction)
+        
+        self.presentViewController(logoutDialog, animated: true, completion: nil)
     }
 }
