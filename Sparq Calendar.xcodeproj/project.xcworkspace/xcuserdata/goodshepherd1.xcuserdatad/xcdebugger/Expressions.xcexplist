@@ -14,10 +14,19 @@
          contextName = "Sparq_Calendar.ScheduleViewController.tableView (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ObjectiveC.UITableViewCell:ScheduleViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "classes.count">
+               value = "classes">
             </PersistentString>
             <PersistentString
-               value = "classes">
+               value = "today &gt;&gt;= c.stopTime">
+            </PersistentString>
+            <PersistentString
+               value = "(today &gt;&gt;= c.startTime) &amp;&amp; today &lt;&lt; c.stopTime">
+            </PersistentString>
+            <PersistentString
+               value = "today &lt;&lt; c.startTime">
+            </PersistentString>
+            <PersistentString
+               value = "!(today &lt;&lt; c.stopTime)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

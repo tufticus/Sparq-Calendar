@@ -49,6 +49,17 @@ public func << (lhs: NSDate, rhs: NSDate) -> Bool {
     }
 }
 
+public func <<= (lhs: NSDate, rhs: NSDate) -> Bool {
+    if lhs.hour > rhs.hour {
+        return false;
+    } else if lhs.hour == rhs.hour {
+        return lhs.minute <= rhs.minute
+    } else {
+        return true;
+    }
+}
+
+
 public func >> (lhs: NSDate, rhs: NSDate) -> Bool {
     if lhs.hour < rhs.hour {
         return false;
@@ -58,6 +69,17 @@ public func >> (lhs: NSDate, rhs: NSDate) -> Bool {
         return true;
     }
 }
+
+public func >>= (lhs: NSDate, rhs: NSDate) -> Bool {
+    if lhs.hour < rhs.hour {
+        return false;
+    } else if lhs.hour == rhs.hour {
+        return lhs.minute >= rhs.minute
+    } else {
+        return true;
+    }
+}
+
 
 // MARK: -
 

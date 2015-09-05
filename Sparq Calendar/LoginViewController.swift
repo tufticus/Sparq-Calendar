@@ -18,6 +18,7 @@ var schedule = Schedule()
 var databasePath = ""
 
 var debug = false
+let debugToday: NSDate = "2015-09-10 12:00:00".dateFromFormat("yyyy-MM-dd HH:mm:ss")!
 
 
 class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDelegate {

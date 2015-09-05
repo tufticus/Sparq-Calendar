@@ -20,7 +20,7 @@
                                 <rect key="frame" x="192" y="663" width="385" height="75"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="go"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="o2b-dm-Mtv"/>
                                 </connections>
@@ -79,7 +79,7 @@
                                 <rect key="frame" x="192" y="580" width="385" height="75"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.27450980392156865" green="0.75686274509803919" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -215,7 +215,7 @@
         <image name="arrow_right" width="36" height="35"/>
         <image name="burger" width="76" height="58"/>
         <image name="password" width="36" height="35"/>
-        <image name="sparq" width="257" height="344"/>
+        <image name="sparq" width="514" height="688"/>
         <image name="username" width="66" height="76"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -52,7 +52,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         
         
         if debug {
-            loadTableViewForDate("2015-08-14 12:00:00".dateFromFormat("yyyy-MM-dd HH:mm:ss")!)
+            loadTableViewForDate(debugToday)
         } else {
             loadTableViewForDate(NSDate())
         }
@@ -326,22 +326,30 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 }
             }
             
-            cell.roomLabel?.text = "Room \(c.room)"
+            if c.room.isEmpty {
+                cell.roomLabel.hidden = true
+            } else {
+                cell.roomLabel.text = "Room \(c.room)"
+                cell.roomLabel.hidden = false
+            }
             cell.timeLabel?.text = todFormatter.stringFromDate(c.startTime) + " to " + todFormatter.stringFromDate(c.stopTime)
             
-            let now = timeFormatter.stringFromDate(today)
-            let start = timeFormatter.stringFromDate(c.startTime)
-            let stop = timeFormatter.stringFromDate(c.stopTime)
+//            let now = timeFormatter.stringFromDate(today)
+//            let start = timeFormatter.stringFromDate(c.startTime)
+//            let stop = timeFormatter.stringFromDate(c.stopTime)
             
-            
-            if now >= start && now < stop { // class is now
+            if (!debug && today.beginningOfDay == NSDate().beginningOfDay) || (debug && today.beginningOfDay == debugToday.beginningOfDay) { // only color if today's schedule
+                if (today >>= c.startTime) && today << c.stopTime { // class is now
+                    cell.backgroundColor = UIColor.whiteColor()
+                    
+                //    tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: false)
+                } else if today << c.startTime { // class in the future
+                    cell.backgroundColor = lightGrey
+                } else if (today >>= c.stopTime) { // class in the past
+                    cell.backgroundColor = darkGrey
+                }
+            } else {
                 cell.backgroundColor = UIColor.whiteColor()
-                
-                tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: false)
-            } else if now < start { // class in the future
-                cell.backgroundColor = lightGrey
-            } else if now >= stop { // class in the past
-                cell.backgroundColor = darkGrey
             }
         }
         
@@ -409,7 +417,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                         timerInterval = now.beginningOfDay + 1.day - now
                     } else { // during a class, pick next
                         for (index, m) in enumerate(meetings) {
-                            if !(m.startTime >> now) && m.stopTime >> now {
+                            if (m.startTime <<= now) && m.stopTime >> now {
                                 if index == meetings.count - 1 { // last class, pick next day
                                     timerInterval = now.beginningOfDay + 1.day - now
                                 } else { // pick the next class
