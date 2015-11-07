@@ -16,6 +16,8 @@ class Schedule {
     var startDate: NSDate = NSDate()
     var stopDate: NSDate = NSDate()
     var timezone = ""
+    var scheduleID = 0
+    var schoolID = 0
 
     init() {
         

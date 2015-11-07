@@ -3,3 +3,4 @@
 //
 
 #import "FMDB.h"
+#import "CryptoSwift/CryptoSwift.h"

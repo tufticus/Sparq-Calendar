@@ -3,13 +3,11 @@
 import UIKit
 import Foundation
 
-
-
 var dateFormatter = NSDateFormatter()
 var timeFormatter = NSDateFormatter()
 var todFormatter = NSDateFormatter()
 
-var user  = User()
+var user = User()
 var classes = [ClassMeetings]()
 var days = [String]()
 var holidays = Dictionary<String,String>()
@@ -17,7 +15,10 @@ var schedule = Schedule()
 
 var databasePath = ""
 
-var debug = false
+var debug = true
+var debug_login = true
+var debug_userID = 61
+
 let debugToday: NSDate = "2015-09-10 12:00:00".dateFromFormat("yyyy-MM-dd HH:mm:ss")!
 
 
@@ -59,7 +60,21 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         let loginStored = NSUserDefaults.standardUserDefaults().boolForKey("hasLoginKey")
         
         // check server version to sync the data
-        if loginStored {
+        
+        if debug && debug_login {
+            self.dropAllTables()
+            
+            RestApiManager.sharedInstance.getSchedule(debug_userID, onCompletion: { json -> Void in
+                let dayCount = self.processSchedule(json)
+                
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
+                NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+                NSUserDefaults.standardUserDefaults().setInteger(debug_userID, forKey: "userID")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                self.loginSegue()
+            })
+        } else if loginStored  {
             let sparqDB = FMDatabase(path: databasePath as String)
             
             if sparqDB == nil {
@@ -67,8 +82,11 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             }
             
             var version = 0
+            var userID = 0
+            var scheduleID = 0
+            var dataFound = false;
             if sparqDB.open() {
-                var stmt = "SELECT version from Schedules LIMIT 1"
+                var stmt = "SELECT version, scheduleID from Schedules LIMIT 1"
                 
                 // put into DB
                 var results:FMResultSet? = sparqDB.executeQuery(stmt,
@@ -76,72 +94,78 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 
                 if results?.next() == true {
                     version = Int(results!.intForColumn("version"))
+                    scheduleID = Int(results!.intForColumn("scheduleID"))
                 } else {
                     println("error getting schedules")
                 }
                 
                 
-                stmt = "SELECT email from Users LIMIT 1"
+                stmt = "SELECT userID, email from Users LIMIT 1"
                 
                 // put into DB
                 results = sparqDB.executeQuery(stmt,
                     withArgumentsInArray: nil)
                 
                 if results?.next() == true {
-                    usernameField.text = results?.stringForColumn("email")
+                    //usernameField.text = results?.stringForColumn("email")
+                    userID = Int(results!.intForColumn("userID"))
                 } else {
                     println("error getting schedules")
+                }
+                
+                if version > 0 && scheduleID > 0 && userID > 0 {
+                    dataFound = true
                 }
              
                 sparqDB.close()
             }
             
-            
-            RestApiManager.sharedInstance.checkVersion(version, onCompletion: { json -> Void in
+            if !dataFound { // data base moved yet login creds stored.
+                let userID = NSUserDefaults.standardUserDefaults().integerForKey("UserID")
                 
-                if json["version"] == "current" {
-                    println("saved credentials")
-                    self.loginSegue()
-                } else { // grab the schedule again
-                    self.dropAllTables()
-                    
-                    let sparqDB = FMDatabase(path: databasePath as String)
-                    
-                    if sparqDB == nil {
-                        println("Error: \(sparqDB.lastErrorMessage())")
-                    }
-                    
-                    var userID = 0
-                    if sparqDB.open() {
-                        var stmt = "SELECT userID from Users LIMIT 1"
-                        
-                        // delete old data first!
-                        // TODO
-                        
-                        // put into DB
-                        let results:FMResultSet? = sparqDB.executeQuery(stmt,
-                            withArgumentsInArray: nil)
-                        
-                        if results?.next() == true {
-                            userID = Int(results!.intForColumn("userID"))
-                            
-                            RestApiManager.sharedInstance.getSchedule(userID, onCompletion: { json -> Void in
-                                let dayCount = self.processSchedule(json)
-                                
-                                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
-                                NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
-                                NSUserDefaults.standardUserDefaults().synchronize()
-
-                                self.loginSegue()
-                            })
-                        } else {
-                            println("error getting schedules")
-                        }
-                    }
-                    
-                    sparqDB.close()
+                if userID > 0 {
+                    self.getSchedule(userID)
                 }
-            })
+            } else {
+                RestApiManager.sharedInstance.checkVersion(version, scheduleID: scheduleID, onCompletion: { json -> Void in
+                    
+                    if json["version"] == "current" {
+                        println("schedule current")
+                        self.loginSegue()
+                    } else { // grab the schedule again
+                        println("schedule out of date")
+                        self.dropAllTables()
+                        
+                        let sparqDB = FMDatabase(path: databasePath as String)
+                        
+                        if sparqDB == nil {
+                            println("Error: \(sparqDB.lastErrorMessage())")
+                        }
+                        
+                        var userID = 0
+                        if sparqDB.open() {
+                            var stmt = "SELECT userID from Users LIMIT 1"
+                            
+                            // delete old data first!
+                            // TODO
+                            
+                            // put into DB
+                            let results:FMResultSet? = sparqDB.executeQuery(stmt,
+                                withArgumentsInArray: nil)
+                            
+                            if results?.next() == true {
+                                userID = Int(results!.intForColumn("userID"))
+                                
+                                self.getSchedule(userID)
+                            } else {
+                                println("error getting schedules")
+                            }
+                        }
+                        
+                        sparqDB.close()
+                    }
+                })
+            }
         }
         
         createTables()
@@ -208,6 +232,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             
             NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasLoginKey")
             NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "dayCount")
+            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "userID")
             NSUserDefaults.standardUserDefaults().synchronize()
 
         }
@@ -225,6 +250,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
                 NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+                NSUserDefaults.standardUserDefaults().setInteger(json["userID"].intValue, forKey: "userID")
                 NSUserDefaults.standardUserDefaults().synchronize()
 
                 self.loginSegue()
@@ -257,6 +283,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         user.email = usernameField.text
         user.userID = json["userID"].intValue
         user.type = json["type"].intValue
+        user.grade = json["grade"].intValue
         
         // put into DB
         if sparqDB.open() == false {
@@ -285,16 +312,20 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         schedule.grade = json["grade"].intValue
         schedule.timezone = json["timezone"].stringValue
         schedule.version = json["version"].intValue
+        schedule.schoolID = json["schoolID"].intValue
+        schedule.scheduleID = json["scheduleID"].intValue
         
         // put into DB
         println("Inserting Schedule")
-        stmt = "INSERT INTO Schedules (schoolName, startDate, stopDate, grade, timezone, version) VALUES"
+        stmt = "INSERT INTO Schedules (schoolName, startDate, stopDate, grade, timezone, version, schoolID, scheduleID) VALUES"
         stmt += "('" + schedule.schoolName + "', "
         stmt += "'" + json["startDate"].stringValue + "', "
         stmt += "'" + json["stopDate"].stringValue + "', "
         stmt += "\(schedule.grade), "
         stmt += "'" + schedule.timezone + "', "
-        stmt += "\(schedule.version))"
+        stmt += "\(schedule.version), "
+        stmt += "\(schedule.schoolID), "
+        stmt += "\(schedule.scheduleID))"
         
         results = sparqDB.executeUpdate(stmt,
             withArgumentsInArray: nil)
@@ -352,8 +383,8 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         for( index, holiday ) in json["holidays"] {
             stmt = "INSERT INTO Holidays (name, date) VALUES ("
             
-            stmt += "'" + holiday["date"].stringValue + "', "
-            stmt += "'" + holiday["name"].stringValue + "')"
+            stmt += "'" + holiday["name"].stringValue + "', "
+            stmt += "'" + holiday["date"].stringValue + "')"
             
             // put into db
             results = sparqDB.executeUpdate(stmt,
@@ -429,7 +460,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             }
             
             
-            sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT)"
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT, schoolID INT, scheduleID INT)"
             if !sparqDB.executeStatements(sql_stmt) {
                 println("Error: \(sparqDB.lastErrorMessage())")
             }
@@ -463,6 +494,19 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         return true
     }
     
+    func getSchedule(userID: Int) {
+        RestApiManager.sharedInstance.getSchedule(userID, onCompletion: { json -> Void in
+            let dayCount = self.processSchedule(json)
+            
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
+            NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+            NSUserDefaults.standardUserDefaults().setInteger(userID, forKey: "userID")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            self.loginSegue()
+        })
+    }
+    
     
     @IBAction func registerPressed(sender: UIButton) {
         var alert = UIAlertController(title: "Register", message: "Enter email & password", preferredStyle: UIAlertControllerStyle.Alert)
@@ -472,8 +516,8 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         
         alert.addAction(UIAlertAction(title: "Register", style: UIAlertActionStyle.Default, handler: { action in
             var email = String()
-            var pw1 = String()
-            var pw2 = String()
+            var pw1:String = String()
+            var pw2:String = String()
             
             if let e = emailTF.text {
                 email = e
@@ -505,6 +549,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             alert.dismissViewControllerAnimated(true, completion: nil)
             self.progress.startAnimating()
             
+//            let pwHashed = //pw1.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
             RestApiManager.sharedInstance.registerUser(email, password: pw1, onCompletion: { json -> Void in
                     self.progress.stopAnimating()
                 
@@ -519,6 +564,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                         
                         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "hasLoginKey")
                         NSUserDefaults.standardUserDefaults().setInteger(dayCount, forKey: "dayCount")
+                        NSUserDefaults.standardUserDefaults().setInteger(json["userID"].intValue, forKey: "userID")
                         NSUserDefaults.standardUserDefaults().synchronize()
                         
                         self.loginSegue()
@@ -566,6 +612,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "hasLoginKey")
         NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "dayCount")
+        NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "userID")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
 

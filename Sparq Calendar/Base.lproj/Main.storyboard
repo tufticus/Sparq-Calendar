@@ -155,7 +155,13 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room: 200" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1v1-DF-BpB">
-                                            <rect key="frame" x="235" y="137" width="522" height="65.5"/>
+                                            <rect key="frame" x="235" y="137" width="239" height="65.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Taught by: Cole" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJ0-Gs-aUj">
+                                            <rect key="frame" x="482" y="137" width="239" height="65.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -166,6 +172,7 @@
                                     <outlet property="roomLabel" destination="1v1-DF-BpB" id="aX8-aV-T5a"/>
                                     <outlet property="subjectImage" destination="Rw4-vr-rvQ" id="CKd-TF-Fda"/>
                                     <outlet property="subjectLabel" destination="avf-1D-GYI" id="KqN-ab-ghl"/>
+                                    <outlet property="teacherLabel" destination="xJ0-Gs-aUj" id="tHw-Vl-CWH"/>
                                     <outlet property="timeLabel" destination="ZJH-GK-tgy" id="rEL-zq-tup"/>
                                 </connections>
                             </tableViewCell>

@@ -12,6 +12,8 @@
 	<dict>
 		<key>04101981B66E318109934C9516F88D824BB96459</key>
 		<string>https://github.com/ccgus/fmdb.git</string>
+		<key>C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53</key>
+		<string>https://github.com/krzyzanowskim/CryptoSwift.git</string>
 		<key>CF2EA5DF0CB0390A3BCA8D873263D4B8AC5C21FC</key>
 		<string>https://github.com/tufticus/Sparq-Calendar.git</string>
 	</dict>
@@ -21,6 +23,8 @@
 	<dict>
 		<key>04101981B66E318109934C9516F88D824BB96459</key>
 		<string>../..Sparq%20Calendar/fmdb</string>
+		<key>C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53</key>
+		<string>../../CryptoSwift</string>
 		<key>CF2EA5DF0CB0390A3BCA8D873263D4B8AC5C21FC</key>
 		<string>../..</string>
 	</dict>
@@ -32,6 +36,14 @@
 	<string>CF2EA5DF0CB0390A3BCA8D873263D4B8AC5C21FC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CryptoSwift</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

@@ -25,8 +25,8 @@ class RestApiManager: NSObject {
         })
     }
     
-    func checkVersion(version: Int, onCompletion: (JSON) -> Void ) {
-        let request = baseURL + "/schedule/version/\(version)"
+    func checkVersion(version: Int, scheduleID: Int, onCompletion: (JSON) -> Void ) {
+        let request = baseURL + "/schedule/version/\(version)?scheduleID=\(scheduleID)"
         
         makeHTTPGetRequest(request, onCompletion: {json, error -> Void in
             onCompletion(json)

@@ -116,31 +116,34 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         
         println("Loading tableView for " + dateFormatter.stringFromDate(today) + " " + timeFormatter.stringFromDate(today))
         
+        dateLabel.text = today.stringFromFormat("EEEE MMM d")
+        
+        
         let holiday = dateFormatter.stringFromDate(today)
         
         if let h = holidays[holiday] {
             // load view for today's holiday
-            
-            return
-        }
-        
-        dayNumber = getDayOfSchedule(date)
-        
-        
-        if today.weekday == 1 || today.weekday == 7 {
-            dayLabel.text = "Weekend"
+            dayLabel.text = "Holiday"
+        } else if schedule.startDate > today {
+            dayLabel.text = "Before Schedule"
+        } else if schedule.stopDate < today {
+            dayLabel.text = "After Schedule"
         } else {
-            dayLabel.text = days[dayNumber-1] + "-Day"
+            dayNumber = getDayOfSchedule(date)
+            
+            if dayNumber != -1 { // error of some sort
+            
+                if today.weekday == 1 || today.weekday == 7 {
+                    dayLabel.text = "Weekend"
+                } else {
+                    dayLabel.text = days[dayNumber-1] + "-Day"
+                }
+                
+                if dayNumber != 0 { // is a weekend
+                    classes = getClassesForScheduleDay(dayNumber)
+                }
+            }
         }
-        dateLabel.text = today.stringFromFormat("EEEE MMM d")
-        
-        
-        
-        if dayNumber == 0 { // is a weekend
-            return
-        }
-
-        classes = getClassesForScheduleDay(dayNumber)
         
         
         tableView.reloadData()
@@ -217,7 +220,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 days.append(day.name)
             }
             
-            stmt = "SELECT * FROM Holidays WHERE date >= " + dateFormatter.stringFromDate(schedule.startDate) + " AND date <= " + dateFormatter.stringFromDate(schedule.stopDate) + " order by date ASC"
+            stmt = "SELECT * FROM Holidays WHERE date >= '" + dateFormatter.stringFromDate(schedule.startDate) + "' AND date <= '" + dateFormatter.stringFromDate(schedule.stopDate) + "' order by date ASC"
             results = sparqDB.executeQuery(stmt, withArgumentsInArray: nil)
             
             while results?.next() == true {
@@ -241,7 +244,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             let stopDate = dateFormatter.stringFromDate(stop)
             
             
-            let stmt = "SELECT COUNT(date) as count FROM Holidays WHERE date >= \(startDate) AND date <= \(stopDate)"
+            let stmt = "SELECT COUNT(date) as count FROM Holidays WHERE date >= '\(startDate)' AND date <= '\(stopDate)'"
             let results:FMResultSet? = sparqDB.executeQuery(stmt, withArgumentsInArray: nil)
             
             if results?.next() == true {
@@ -289,7 +292,8 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ClassTableViewCell
         
         if let h = holidays[dateFormatter.stringFromDate(today)] { // holiday
-            cell.subjectImage?.image = UIImage(named: "icn_holiday") //"icn_holiday")
+            //cell.subjectImage?.image = UIImage(named: "icn_holiday") //"icn_holiday")
+            cell.subjectImage?.image = UIImage(named: "icn_default")
             cell.subjectLabel?.text = h
             cell.roomLabel?.text = ""
             cell.timeLabel?.text = ""
@@ -298,6 +302,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             cell.subjectImage?.image = UIImage(named: "icn_default")
             cell.roomLabel?.text = ""
             cell.timeLabel?.text = ""
+            cell.teacherLabel?.text = ""
             cell.backgroundColor = darkGrey
             
             if today.weekday == 1 || today.weekday == 7 { // weekday
@@ -324,6 +329,13 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 } else {
                     cell.subjectLabel?.text = c.subject + " \(c.grade)-\(c.section)"
                 }
+            }
+            
+            if c.teacherName.isEmpty || user.type != 1 {
+                cell.teacherLabel.hidden = true
+            } else {
+                cell.teacherLabel.hidden = false
+                cell.teacherLabel.text = "Taught by: " + c.teacherName
             }
             
             if c.room.isEmpty {
@@ -410,7 +422,9 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 } else {
                     let meetings = self.getClassesForScheduleDay(d)
                     
-                    if meetings[0].startTime >> now {    // before classes have started, pick first
+                    if meetings.count == 0 { // no classes today, check tomorrow
+                        timerInterval = now.beginningOfDay + 1.day - now
+                    } else if meetings[0].startTime >> now {    // before classes have started, pick first
                         meeting = meetings[0]
                         timerInterval = now.change(hour: meeting.startTime.hour, minute: (meeting.startTime.minute + 10)) - now
                     } else if meetings.last.stopTime << now { // after classes have started, check tomorrow
@@ -461,7 +475,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             let date = dateFormatter.stringFromDate(date)
             
             
-            let stmt = "SELECT COUNT(date) as count FROM Holidays WHERE date = \(date)"
+            let stmt = "SELECT COUNT(date) as count FROM Holidays WHERE date = '\(date)'"
             let results:FMResultSet? = sparqDB.executeQuery(stmt, withArgumentsInArray: nil)
             
             if results?.next() == true {
