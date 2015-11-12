@@ -13,8 +13,6 @@
 		DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */; };
 		DB15D4721B545CE600CA2A63 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4711B545CE600CA2A63 /* RestApiManager.swift */; };
 		DB15D4771B56AB5A00CA2A63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */; };
-		DB1A50BB1B9BCD0300FD2F40 /* CryptoSwift in Resources */ = {isa = PBXBuildFile; fileRef = DB1A50BA1B9BCD0300FD2F40 /* CryptoSwift */; };
-		DB1A50BC1B9BCD0300FD2F40 /* CryptoSwift in Resources */ = {isa = PBXBuildFile; fileRef = DB1A50BA1B9BCD0300FD2F40 /* CryptoSwift */; };
 		DB2280691B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */; };
 		DB22806A1B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */; };
 		DB2280761B51DC4C0023D10F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */; };
@@ -105,7 +103,6 @@
 		DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparq_CalendarTests.swift; sourceTree = "<group>"; };
 		DB15D4711B545CE600CA2A63 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
 		DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		DB1A50BA1B9BCD0300FD2F40 /* CryptoSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CryptoSwift; sourceTree = "<group>"; };
 		DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		DB2EF47C1B66DE3700F78317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -187,7 +184,6 @@
 		DB031B8E1B338C3700417713 /* Sparq Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				DB1A50BA1B9BCD0300FD2F40 /* CryptoSwift */,
 				DBE094881B4AE6FC00E76F17 /* utils */,
 				DBF2F4F01B5F065D00B2F44F /* ClassMeetings.swift */,
 				DBE50E021B66AADF00E43954 /* ClassTableViewCell.swift */,
@@ -357,7 +353,6 @@
 			files = (
 				DB031B991B338C3700417713 /* Images.xcassets in Resources */,
 				DB2EF47D1B66DE3700F78317 /* Main.storyboard in Resources */,
-				DB1A50BB1B9BCD0300FD2F40 /* CryptoSwift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +361,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB34AF031B8222FC004751F0 /* Images.xcassets in Resources */,
-				DB1A50BC1B9BCD0300FD2F40 /* CryptoSwift in Resources */,
 				DBF2F4F71B600F6000B2F44F /* LaunchScreen.xib in Resources */,
 				DB2EF47E1B66DE3700F78317 /* Main.storyboard in Resources */,
 			);
