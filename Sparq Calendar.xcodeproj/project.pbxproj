@@ -13,7 +13,6 @@
 		DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */; };
 		DB15D4721B545CE600CA2A63 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4711B545CE600CA2A63 /* RestApiManager.swift */; };
 		DB15D4771B56AB5A00CA2A63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */; };
-		DB15D47A1B599D3300CA2A63 /* Class.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4781B599D3300CA2A63 /* Class.xcdatamodeld */; };
 		DB1A50BB1B9BCD0300FD2F40 /* CryptoSwift in Resources */ = {isa = PBXBuildFile; fileRef = DB1A50BA1B9BCD0300FD2F40 /* CryptoSwift */; };
 		DB1A50BC1B9BCD0300FD2F40 /* CryptoSwift in Resources */ = {isa = PBXBuildFile; fileRef = DB1A50BA1B9BCD0300FD2F40 /* CryptoSwift */; };
 		DB2280691B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */; };
@@ -43,6 +42,16 @@
 		DB34AF031B8222FC004751F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB031B981B338C3700417713 /* Images.xcassets */; };
 		DB4378951B8399970056CE60 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4378941B8399970056CE60 /* Reachability.swift */; };
 		DB4378961B8399970056CE60 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4378941B8399970056CE60 /* Reachability.swift */; };
+		DB48EDDB1BEEC82A00ADA62C /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDDA1BEEC82A00ADA62C /* Semester.swift */; };
+		DB48EDDC1BEEC82A00ADA62C /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDDA1BEEC82A00ADA62C /* Semester.swift */; };
+		DB48EDDE1BEEC8B800ADA62C /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDDD1BEEC8B800ADA62C /* Section.swift */; };
+		DB48EDDF1BEEC8B800ADA62C /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDDD1BEEC8B800ADA62C /* Section.swift */; };
+		DB48EDE11BEEC96F00ADA62C /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDE01BEEC96F00ADA62C /* Period.swift */; };
+		DB48EDE21BEEC96F00ADA62C /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDE01BEEC96F00ADA62C /* Period.swift */; };
+		DB48EDE41BEEC9D800ADA62C /* RotationalDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDE31BEEC9D700ADA62C /* RotationalDay.swift */; };
+		DB48EDE51BEEC9D800ADA62C /* RotationalDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDE31BEEC9D700ADA62C /* RotationalDay.swift */; };
+		DB48EDE71BEFE1FE00ADA62C /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDE61BEFE1FE00ADA62C /* Class.swift */; };
+		DB48EDE81BEFE1FE00ADA62C /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDE61BEFE1FE00ADA62C /* Class.swift */; };
 		DB7BE6641B5D590300F2725F /* Holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6631B5D590300F2725F /* Holidays.swift */; };
 		DB7BE6661B5D590400F2725F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6651B5D590400F2725F /* User.swift */; };
 		DB7BE66C1B5D590400F2725F /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE66B1B5D590400F2725F /* Schedule.swift */; };
@@ -65,7 +74,6 @@
 		DBF2F4E61B5EB5F800B2F44F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6651B5D590400F2725F /* User.swift */; };
 		DBF2F4E71B5EB5FB00B2F44F /* Holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6631B5D590300F2725F /* Holidays.swift */; };
 		DBF2F4E91B5EB60900B2F44F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */; };
-		DBF2F4EA1B5EB61000B2F44F /* Class.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4781B599D3300CA2A63 /* Class.xcdatamodeld */; };
 		DBF2F4EB1B5EB61400B2F44F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B931B338C3700417713 /* ViewController.swift */; };
 		DBF2F4EC1B5EB61600B2F44F /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4711B545CE600CA2A63 /* RestApiManager.swift */; };
 		DBF2F4F11B5F065D00B2F44F /* ClassMeetings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2F4F01B5F065D00B2F44F /* ClassMeetings.swift */; };
@@ -97,7 +105,6 @@
 		DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sparq_CalendarTests.swift; sourceTree = "<group>"; };
 		DB15D4711B545CE600CA2A63 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
 		DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		DB15D4791B599D3300CA2A63 /* Class.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Class.xcdatamodel; sourceTree = "<group>"; };
 		DB1A50BA1B9BCD0300FD2F40 /* CryptoSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CryptoSwift; sourceTree = "<group>"; };
 		DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +119,11 @@
 		DB30606A1B7422C300052AC0 /* String+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Timepiece.swift"; path = "Timepeace/String+Timepiece.swift"; sourceTree = "<group>"; };
 		DB30607B1B742F2100052AC0 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		DB4378941B8399970056CE60 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		DB48EDDA1BEEC82A00ADA62C /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
+		DB48EDDD1BEEC8B800ADA62C /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		DB48EDE01BEEC96F00ADA62C /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
+		DB48EDE31BEEC9D700ADA62C /* RotationalDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationalDay.swift; sourceTree = "<group>"; };
+		DB48EDE61BEFE1FE00ADA62C /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
 		DB7BE6631B5D590300F2725F /* Holidays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holidays.swift; sourceTree = "<group>"; };
 		DB7BE6651B5D590400F2725F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DB7BE66B1B5D590400F2725F /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -181,12 +193,16 @@
 				DBE50E021B66AADF00E43954 /* ClassTableViewCell.swift */,
 				DBF2F4F31B5FE56300B2F44F /* Days.swift */,
 				DB7BE66B1B5D590400F2725F /* Schedule.swift */,
+				DB48EDE01BEEC96F00ADA62C /* Period.swift */,
 				DB7BE6651B5D590400F2725F /* User.swift */,
 				DB7BE6631B5D590300F2725F /* Holidays.swift */,
+				DB48EDE31BEEC9D700ADA62C /* RotationalDay.swift */,
+				DB48EDDD1BEEC8B800ADA62C /* Section.swift */,
+				DB48EDE61BEFE1FE00ADA62C /* Class.swift */,
 				DB031B911B338C3700417713 /* AppDelegate.swift */,
+				DB48EDDA1BEEC82A00ADA62C /* Semester.swift */,
 				DB2EF47B1B66DE3700F78317 /* Main.storyboard */,
 				DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */,
-				DB15D4781B599D3300CA2A63 /* Class.xcdatamodeld */,
 				DB031B931B338C3700417713 /* ViewController.swift */,
 				DB15D4711B545CE600CA2A63 /* RestApiManager.swift */,
 				DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */,
@@ -364,19 +380,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB3060791B7422C300052AC0 /* String+Timepiece.swift in Sources */,
+				DB48EDDB1BEEC82A00ADA62C /* Semester.swift in Sources */,
 				DB3060751B7422C300052AC0 /* NSDateComponents+Timepiece.swift in Sources */,
 				DBF2F4F11B5F065D00B2F44F /* ClassMeetings.swift in Sources */,
 				DB30606F1B7422C300052AC0 /* NSCalendar+Timepiece.swift in Sources */,
 				DBE50E031B66AADF00E43954 /* ClassTableViewCell.swift in Sources */,
-				DB15D47A1B599D3300CA2A63 /* Class.xcdatamodeld in Sources */,
 				DB3060711B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift in Sources */,
 				DBCE7F751B6589330008D0BF /* FMDatabasePool.m in Sources */,
+				DB48EDE41BEEC9D800ADA62C /* RotationalDay.swift in Sources */,
+				DB48EDE11BEEC96F00ADA62C /* Period.swift in Sources */,
 				DB3060731B7422C300052AC0 /* NSDate+Timepiece.swift in Sources */,
+				DB48EDE71BEFE1FE00ADA62C /* Class.swift in Sources */,
 				DB15D4771B56AB5A00CA2A63 /* LoginViewController.swift in Sources */,
 				DBCE7F6D1B6589330008D0BF /* FMDatabase.m in Sources */,
 				DB2280691B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */,
 				DBCE7F731B6589330008D0BF /* FMDatabaseAdditions.m in Sources */,
 				DB30606D1B7422C300052AC0 /* Int+Timepiece.swift in Sources */,
+				DB48EDDE1BEEC8B800ADA62C /* Section.swift in Sources */,
 				DB4378951B8399970056CE60 /* Reachability.swift in Sources */,
 				DBCE7F6F1B6589330008D0BF /* FMResultSet.m in Sources */,
 				DB031B941B338C3700417713 /* ViewController.swift in Sources */,
@@ -407,13 +427,16 @@
 				DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */,
 				DB4378961B8399970056CE60 /* Reachability.swift in Sources */,
 				DBF2F4E31B5EB5ED00B2F44F /* Schedule.swift in Sources */,
+				DB48EDDF1BEEC8B800ADA62C /* Section.swift in Sources */,
+				DB48EDE21BEEC96F00ADA62C /* Period.swift in Sources */,
 				DB3060701B7422C300052AC0 /* NSCalendar+Timepiece.swift in Sources */,
 				DBE50E041B66AADF00E43954 /* ClassTableViewCell.swift in Sources */,
 				DB22806A1B4B1D7E0023D10F /* SwiftyJSON.swift in Sources */,
 				DB30607D1B742F2100052AC0 /* ArrayExtension.swift in Sources */,
+				DB48EDDC1BEEC82A00ADA62C /* Semester.swift in Sources */,
 				DB3060721B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift in Sources */,
-				DBF2F4EA1B5EB61000B2F44F /* Class.xcdatamodeld in Sources */,
 				DBF2F4E71B5EB5FB00B2F44F /* Holidays.swift in Sources */,
+				DB48EDE51BEEC9D800ADA62C /* RotationalDay.swift in Sources */,
 				DB30606E1B7422C300052AC0 /* Int+Timepiece.swift in Sources */,
 				DB3060761B7422C300052AC0 /* NSDateComponents+Timepiece.swift in Sources */,
 				DB3060741B7422C300052AC0 /* NSDate+Timepiece.swift in Sources */,
@@ -426,6 +449,7 @@
 				DBF2F4E61B5EB5F800B2F44F /* User.swift in Sources */,
 				DBCE7F761B6589330008D0BF /* FMDatabasePool.m in Sources */,
 				DBCE7F6E1B6589330008D0BF /* FMDatabase.m in Sources */,
+				DB48EDE81BEFE1FE00ADA62C /* Class.swift in Sources */,
 				DBCE7F721B6589330008D0BF /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -749,19 +773,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		DB15D4781B599D3300CA2A63 /* Class.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				DB15D4791B599D3300CA2A63 /* Class.xcdatamodel */,
-			);
-			currentVersion = DB15D4791B599D3300CA2A63 /* Class.xcdatamodel */;
-			path = Class.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = DB031B841B338C3700417713 /* Project object */;
 }

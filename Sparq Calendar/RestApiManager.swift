@@ -14,7 +14,7 @@ class RestApiManager: NSObject {
     
     static let sharedInstance = RestApiManager();
     
-    let baseURL = "http://dev-a.baconlove.club/Sparq"
+    let baseURL = "http://dev-a.baconlove.club/Sparq_v2"
     
     func login(email: String, password: String, onCompletion: (JSON) -> Void ) {
         let request = baseURL + "/user?email=" + email + "&password=" + password
@@ -25,8 +25,8 @@ class RestApiManager: NSObject {
         })
     }
     
-    func checkVersion(version: Int, scheduleID: Int, onCompletion: (JSON) -> Void ) {
-        let request = baseURL + "/schedule/version/\(version)?scheduleID=\(scheduleID)"
+    func checkVersion(version: Int, schoolYearID: Int, onCompletion: (JSON) -> Void ) {
+        let request = baseURL + "/schedule/version/\(version)?schoolYearID=\(schoolYearID)"
         
         makeHTTPGetRequest(request, onCompletion: {json, error -> Void in
             onCompletion(json)

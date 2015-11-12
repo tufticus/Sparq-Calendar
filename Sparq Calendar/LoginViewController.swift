@@ -8,14 +8,14 @@ var timeFormatter = NSDateFormatter()
 var todFormatter = NSDateFormatter()
 
 var user = User()
-var classes = [ClassMeetings]()
+var classes = [Class]()
 var days = [String]()
 var holidays = Dictionary<String,String>()
 var schedule = Schedule()
 
 var databasePath = ""
 
-var debug = true
+var debug = false
 var debug_login = true
 var debug_userID = 61
 
@@ -83,10 +83,10 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             
             var version = 0
             var userID = 0
-            var scheduleID = 0
+            var schoolYearID = 0
             var dataFound = false;
             if sparqDB.open() {
-                var stmt = "SELECT version, scheduleID from Schedules LIMIT 1"
+                var stmt = "SELECT version, schoolYearID from Schedules LIMIT 1"
                 
                 // put into DB
                 var results:FMResultSet? = sparqDB.executeQuery(stmt,
@@ -94,9 +94,9 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 
                 if results?.next() == true {
                     version = Int(results!.intForColumn("version"))
-                    scheduleID = Int(results!.intForColumn("scheduleID"))
+                    schoolYearID = Int(results!.intForColumn("schoolYearID"))
                 } else {
-                    println("error getting schedules")
+                    println("error getting verson number")
                 }
                 
                 
@@ -110,10 +110,10 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                     //usernameField.text = results?.stringForColumn("email")
                     userID = Int(results!.intForColumn("userID"))
                 } else {
-                    println("error getting schedules")
+                    println("error getting user info")
                 }
                 
-                if version > 0 && scheduleID > 0 && userID > 0 {
+                if version > 0 && schoolYearID > 0 && userID > 0 {
                     dataFound = true
                 }
              
@@ -127,7 +127,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                     self.getSchedule(userID)
                 }
             } else {
-                RestApiManager.sharedInstance.checkVersion(version, scheduleID: scheduleID, onCompletion: { json -> Void in
+                RestApiManager.sharedInstance.checkVersion(version, schoolYearID: schoolYearID, onCompletion: { json -> Void in
                     
                     if json["version"] == "current" {
                         println("schedule current")
@@ -158,7 +158,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                                 
                                 self.getSchedule(userID)
                             } else {
-                                println("error getting schedules")
+                                println("error getting user info")
                             }
                         }
                         
@@ -313,11 +313,11 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         schedule.timezone = json["timezone"].stringValue
         schedule.version = json["version"].intValue
         schedule.schoolID = json["schoolID"].intValue
-        schedule.scheduleID = json["scheduleID"].intValue
+        schedule.schoolYearID = json["schoolYearID"].intValue
         
         // put into DB
         println("Inserting Schedule")
-        stmt = "INSERT INTO Schedules (schoolName, startDate, stopDate, grade, timezone, version, schoolID, scheduleID) VALUES"
+        stmt = "INSERT INTO Schedules (schoolName, startDate, stopDate, grade, timezone, version, schoolID, schoolYearID) VALUES"
         stmt += "('" + schedule.schoolName + "', "
         stmt += "'" + json["startDate"].stringValue + "', "
         stmt += "'" + json["stopDate"].stringValue + "', "
@@ -325,26 +325,39 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         stmt += "'" + schedule.timezone + "', "
         stmt += "\(schedule.version), "
         stmt += "\(schedule.schoolID), "
-        stmt += "\(schedule.scheduleID))"
+        stmt += "\(schedule.schoolYearID))"
         
         results = sparqDB.executeUpdate(stmt,
             withArgumentsInArray: nil)
         
         if !results {
-            self.errorText.text = "Failed to add user"
+            self.errorText.text = "Failed to add schedule"
             println("Error: \(sparqDB.lastErrorMessage())")
         }
         
-        println("Inserting Meetings")
-        for( index, section ) in json["meetings"] {
-            stmt  = "INSERT INTO Meetings(subject, grade, room, startTime, stopTime, period, day, section, teacherName, teacherEmail, icon) VALUES("
+        println("Inserting Semesters")
+        for( index, semester) in json["semesters"] {
+            stmt  = "INSERT INTO Semesters(semesterID, startDate, stopDate) VALUES ("
+            stmt += String(semester["id"].intValue) + ","
+            stmt += "'" + semester["startDate"].stringValue + "',"
+            stmt += "'" + semester["stopDate"].stringValue + "')"
+            
+            // put into DB
+            results = sparqDB.executeUpdate(stmt,
+                withArgumentsInArray: nil)
+            
+            if !results {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+        }
+        
+        println("Inserting Sections")
+        for( index, section) in json["sections"] {
+            stmt  = "INSERT INTO Sections(sectionID, subject, grade, room, section, teacherName, teacherEmail, icon) VALUES ("
+            stmt += String(section["id"].intValue) + ","
             stmt += "'" + section["subject"].stringValue + "', "
             stmt += String(section["grade"].intValue) + ", "
             stmt += "'" + section["room"].stringValue + "', "
-            stmt += "'" + section["startTime"].stringValue + "', "
-            stmt += "'" + section["stopTime"].stringValue + "', "
-            stmt += String(section["period"].intValue) + ", "
-            stmt += String(section["day"].intValue) + ", "
             stmt += String(section["section"].intValue) + ", "
             stmt += "'" + section["teacherName"].stringValue + "', "
             stmt += "'" + section["teacherEmail"].stringValue + "', "
@@ -359,13 +372,45 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             }
         }
         
+        println("Insert Meetings")
+        for( index, meeting ) in json["meetings"] {
+            stmt = "INSERT INTO Meetings(sectionID, periodID, dayID, semesterID) VALUES("
+            stmt += String(meeting["sectionID"].intValue) + ", "
+            stmt += String(meeting["periodID"].intValue) + ", "
+            stmt += String(meeting["dayID"].intValue) + ", "
+            stmt += String(meeting["semesterID"].intValue) + ")"
+            
+            // put into DB
+            results = sparqDB.executeUpdate(stmt,
+                withArgumentsInArray: nil)
+            
+            if !results {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+        }
+        
+        println("Insert Periods")
+        for( index, period ) in json["periods"] {
+            stmt = "INSERT INTO Periods(periodID, number, start, stop) VALUES("
+            stmt += String(period["id"].intValue) + ", "
+            stmt += String(period["number"].intValue) + ", "
+            stmt += "'" + period["start"].stringValue + "', "
+            stmt += "'" + period["stop"].stringValue + "')"
+            
+            // put into DB
+            results = sparqDB.executeUpdate(stmt,
+                withArgumentsInArray: nil)
+            
+            if !results {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+        }
         
         println("Insert Days")
         var dayCount = 0
         for( index, day ) in json["days"] {
-            stmt = "INSERT INTO Days(number, name) VALUES("
-            
-            
+            stmt = "INSERT INTO Days(dayID, number, name) VALUES("
+            stmt += String(day["id"].intValue) + ", "
             stmt += String(day["number"].intValue) + ", "
             stmt += "'" + day["name"].stringValue + "')"
             
@@ -460,19 +505,33 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             }
             
             
-            sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT, schoolID INT, scheduleID INT)"
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT, schoolID INT, schoolYearID INT)"
             if !sparqDB.executeStatements(sql_stmt) {
                 println("Error: \(sparqDB.lastErrorMessage())")
             }
             
-            
-            sql_stmt = "CREATE TABLE IF NOT EXISTS Days (number INT, name TEXT)"
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Semesters (semesterID INT, startDate TEXT, stopDate TEXT)"
             if !sparqDB.executeStatements(sql_stmt) {
                 println("Error: \(sparqDB.lastErrorMessage())")
             }
             
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Sections (sectionID INT, subject TEXT, icon TEXT, grade INT, room TEXT, section INT, teacherName TEXT, teacherEmail TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
             
-            sql_stmt = "CREATE TABLE IF NOT EXISTS Meetings (subject TEXT, grade INT, room  TEXT, startTime TEXT, stopTime TEXT, period INT, day INT, section INT, teacherName TEXT, teacherEmail TEXT, icon TEXT)"
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Meetings (semesterID INT, sectionID INT, periodID INT, dayID INT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Periods (periodID INT, number INT, start TEXT, stop TEXT)"
+            if !sparqDB.executeStatements(sql_stmt) {
+                println("Error: \(sparqDB.lastErrorMessage())")
+            }
+
+            
+            sql_stmt = "CREATE TABLE IF NOT EXISTS Days (dayID INT, number INT, name TEXT)"
             if !sparqDB.executeStatements(sql_stmt) {
                 println("Error: \(sparqDB.lastErrorMessage())")
             }

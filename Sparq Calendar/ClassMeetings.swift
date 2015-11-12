@@ -11,20 +11,10 @@ import Foundation
 
 class ClassMeetings {
 
-    var subject = ""
-    var grade = 0
-    var room = ""
-    var section = 0
-    var teacherName = ""
-    var teacherEmail = ""
-    var startTime: NSDate = NSDate()
-    var startTimeStr = ""
-    var stopTime: NSDate = NSDate()
-    var stopTimeStr = ""
-    var period = 0
-    var day = 0
-    var dayName = ""
-    var icon = ""
+    var section = 0;
+    var period = 0;
+    var day = 0;
+    var semester = 0;
 
     init() {
         

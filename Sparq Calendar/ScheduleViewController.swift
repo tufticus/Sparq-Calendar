@@ -112,7 +112,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         if today != date {
             today = date
         }
-        classes = [ClassMeetings]()
+        classes = [Class]()
         
         println("Loading tableView for " + dateFormatter.stringFromDate(today) + " " + timeFormatter.stringFromDate(today))
         
@@ -140,7 +140,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 }
                 
                 if dayNumber != 0 { // is a weekend
-                    classes = getClassesForScheduleDay(dayNumber)
+                    classes = getClassesForScheduleDay(dayNumber, date: today)
                 }
             }
         }
@@ -149,37 +149,49 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         tableView.reloadData()
     }
     
-    func getClassesForScheduleDay(day: Int) -> [ClassMeetings] {
-        var m = [ClassMeetings]()
+    func getClassesForScheduleDay(day: Int, date: NSDate) -> [Class] {
+        var m = [Class]()
         
         if day > 0 {
         
             let sparqDB = FMDatabase(path: databasePath as String)
             if sparqDB.open() {
-                var stmt = "SELECT * from Meetings WHERE day = \(dayNumber) order by startTime ASC"
+                var stmt  = "SELECT s.subject, s.grade, s.section, s.room, s.teacherName, s.teacherEmail, s.icon, p.start, p.stop, p.number, d.number, d.name "
+                    stmt += "from Semesters sem "
+                    stmt += "INNER JOIN Meetings m "
+                    stmt += "on sem.semesterID = m.semesterID "
+                    stmt += "INNER JOIN Days d "
+                    stmt += "on m.dayID = d.dayID "
+                    stmt += "INNER JOIN Sections s "
+                    stmt += "on m.sectionID = s.sectionID "
+                    stmt += "INNER JOIN Periods p "
+                    stmt += "on m.periodID = p.periodID "
+                    stmt += "WHERE d.number = \(dayNumber) "
+                    stmt += "AND '" + dateFormatter.stringFromDate(date) + "' between sem.startDate and sem.stopDate "
+                    stmt += "order by p.number ASC"
                 
                 var results:FMResultSet? = sparqDB.executeQuery(stmt,
                     withArgumentsInArray: nil)
                 
                 while results?.next() == true {
-                    var meeting = ClassMeetings()
+                    var c = Class()
                     
-                    meeting.subject = results!.stringForColumn("subject")
-                    meeting.grade = Int(results!.intForColumn("grade"))
-                    meeting.room = results!.stringForColumn("room")
-                    meeting.startTimeStr = results!.stringForColumn("startTime")
-                    meeting.startTime = timeFormatter.dateFromString(meeting.startTimeStr)!
-                    meeting.stopTimeStr = results!.stringForColumn("stopTime")
-                    meeting.stopTime = timeFormatter.dateFromString(meeting.stopTimeStr)!
-                    meeting.period = Int(results!.intForColumn("period"))
-                    meeting.day = dayNumber
-                    meeting.dayName = days[dayNumber-1]
-                    meeting.section = Int(results!.intForColumn("section"))
-                    meeting.teacherName = results!.stringForColumn("teacherName")
-                    meeting.teacherEmail = results!.stringForColumn("teacherEmail")
-                    meeting.icon = results!.stringForColumn("icon")
+                    c.subject = results!.stringForColumn("subject")
+                    c.grade = Int(results!.intForColumn("grade"))
+                    c.room = results!.stringForColumn("room")
+                    c.startTimeStr = results!.stringForColumn("start")
+                    c.startTime = timeFormatter.dateFromString(c.startTimeStr)!
+                    c.stopTimeStr = results!.stringForColumn("stop")
+                    c.stopTime = timeFormatter.dateFromString(c.stopTimeStr)!
+                    c.period = Int(results!.intForColumn("period"))
+                    c.day = dayNumber
+                    c.dayName = days[dayNumber-1]
+                    c.section = Int(results!.intForColumn("section"))
+                    c.teacherName = results!.stringForColumn("teacherName")
+                    c.teacherEmail = results!.stringForColumn("teacherEmail")
+                    c.icon = results!.stringForColumn("icon")
                     
-                    m.append(meeting)
+                    m.append(c)
                 }
                 
                 sparqDB.close()
@@ -410,7 +422,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     //        }
             
             var timerInterval = NSTimeInterval(0)
-            var meeting = ClassMeetings()
+            var meeting = Class()
             
             
             let d = self.getDayOfSchedule(now)
@@ -420,7 +432,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                 if self.isDateAHoliday(now) { // check tomorrow
                     timerInterval = now.beginningOfDay + 1.day - now
                 } else {
-                    let meetings = self.getClassesForScheduleDay(d)
+                    let meetings = self.getClassesForScheduleDay(d, date: now)
                     
                     if meetings.count == 0 { // no classes today, check tomorrow
                         timerInterval = now.beginningOfDay + 1.day - now
@@ -459,7 +471,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         })
     }
     
-    func pushClassNotification(meeting: ClassMeetings) {
+    func pushClassNotification(meeting: Class) {
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
         var localNotification: UILocalNotification = UILocalNotification()
