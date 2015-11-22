@@ -10,9 +10,12 @@ var notificationTimer: NSTimer?
 var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 var titleDateFormatter = NSDateFormatter()
 
-let lightGrey = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1.0)
+let activeHeight:CGFloat = 213.0
+let inactiveHeight:CGFloat = 78.0
 
+let lightGrey = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1.0)
 let darkGrey = UIColor(red: 214/255.0, green: 214/255.0, blue: 214/255.0, alpha: 1)
+let notToday = UIColor(red: 202/255.0, green: 224/255.0, blue: 220/255.0, alpha: 1) // cae0dc
 
 
 // this is the delegate
@@ -145,6 +148,13 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             }
         }
         
+        if (!debug && today.beginningOfDay == NSDate().beginningOfDay) || (debug && today.beginningOfDay == debugToday.beginningOfDay) {
+            dayLabel.textColor = UIColor.whiteColor()
+            dateLabel.textColor = UIColor.whiteColor()
+        } else {
+            dayLabel.textColor = notToday
+            dateLabel.textColor = notToday
+        }
         
         tableView.reloadData()
     }
@@ -183,7 +193,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                     c.startTime = timeFormatter.dateFromString(c.startTimeStr)!
                     c.stopTimeStr = results!.stringForColumn("stop")
                     c.stopTime = timeFormatter.dateFromString(c.stopTimeStr)!
-                    c.period = Int(results!.intForColumn("period"))
+                    c.period = Int(results!.intForColumn("number"))
                     c.day = dayNumber
                     c.dayName = days[dayNumber-1]
                     c.section = Int(results!.intForColumn("section"))
@@ -303,6 +313,11 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ClassTableViewCell
         
+        cell.subjectImage.hidden = false
+        cell.timeLabel.hidden = false
+        cell.roomLabel.hidden = false
+        cell.teacherLabel.hidden = false
+        
         if let h = holidays[dateFormatter.stringFromDate(today)] { // holiday
             //cell.subjectImage?.image = UIImage(named: "icn_holiday") //"icn_holiday")
             cell.subjectImage?.image = UIImage(named: "icn_default")
@@ -371,6 +386,11 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                     cell.backgroundColor = lightGrey
                 } else if (today >>= c.stopTime) { // class in the past
                     cell.backgroundColor = darkGrey
+                    cell.subjectImage.hidden = true
+                    cell.timeLabel.hidden = true
+                    cell.roomLabel.hidden = true
+                    cell.teacherLabel.hidden = true
+                    
                 }
             } else {
                 cell.backgroundColor = UIColor.whiteColor()
@@ -378,6 +398,22 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         }
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        if classes.count == 0 {
+            return activeHeight
+        }
+        
+        let c = classes[indexPath.row]
+        
+        if (!debug && today.beginningOfDay == NSDate().beginningOfDay) || (debug && today.beginningOfDay == debugToday.beginningOfDay) { // only color if today's schedule
+            if (today >>= c.stopTime) { // class in the past
+                return inactiveHeight
+            }
+        }
+        return activeHeight
     }
     
     func registerBackgroundTask() {
@@ -525,11 +561,19 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     }
     
     func dayLabel(gesture: UIGestureRecognizer) {
-        loadTableViewForDate(NSDate())
+        if( debug ) {
+            loadTableViewForDate(debugToday)
+        } else {
+            loadTableViewForDate(NSDate())
+        }
     }
     
     func dateLabel(gesture: UIGestureRecognizer) {
-        loadTableViewForDate(NSDate())
+        if( debug ) {
+            loadTableViewForDate(debugToday)
+        } else {
+            loadTableViewForDate(NSDate())
+        }
     }
     
     func settingsClicked(gesture: UIGestureRecognizer) {

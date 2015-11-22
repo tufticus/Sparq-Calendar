@@ -3,18 +3,26 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "Sparq_Calendar.ScheduleViewController.loadTableViewForDate (Sparq_Calendar.ScheduleViewController)(ObjectiveC.NSDate) -&gt; ():ScheduleViewController.swift">
+         contextName = "Sparq_Calendar.ScheduleViewController.tableView (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ObjectiveC.UITableViewCell:ScheduleViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "holidays">
+               value = "user.type">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Sparq_Calendar.LoginViewController.processSchedule (Sparq_Calendar.LoginViewController)(Sparq_Calendar.JSON) -&gt; Swift.Int:LoginViewController.swift">
       </ContextState>
       <ContextState
          contextName = "Sparq_Calendar.LoginViewController.(loginPressed (Sparq_Calendar.LoginViewController) -&gt; (Swift.AnyObject) -&gt; ()).(closure #1):LoginViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "Sparq_Calendar.LoginViewController.processSchedule (Sparq_Calendar.LoginViewController)(Sparq_Calendar.JSON) -&gt; Swift.Int:LoginViewController.swift">
+         contextName = "Sparq_Calendar.ScheduleViewController.tableView (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UITableView, heightForRowAtIndexPath : ObjectiveC.NSIndexPath) -&gt; CoreGraphics.CGFloat:ScheduleViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "classes">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "Sparq_Calendar.ScheduleViewController.rightArrow (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UIGestureRecognizer) -&gt; ():ScheduleViewController.swift">
@@ -33,15 +41,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Sparq_Calendar.ScheduleViewController.tapArrow (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UIGestureRecognizer) -&gt; ():ScheduleViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Sparq_Calendar.ScheduleViewController.tableView (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ObjectiveC.UITableViewCell:ScheduleViewController.swift">
+         contextName = "Sparq_Calendar.ScheduleViewController.loadTableViewForDate (Sparq_Calendar.ScheduleViewController)(ObjectiveC.NSDate) -&gt; ():ScheduleViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "user.type">
+               value = "holidays">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Sparq_Calendar.ScheduleViewController.tapArrow (Sparq_Calendar.ScheduleViewController)(ObjectiveC.UIGestureRecognizer) -&gt; ():ScheduleViewController.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

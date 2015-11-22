@@ -310,6 +310,7 @@
 		DB031B841B338C3700417713 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Sparq Calendar";
 				TargetAttributes = {

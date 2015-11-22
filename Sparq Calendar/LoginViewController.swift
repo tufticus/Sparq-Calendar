@@ -16,10 +16,10 @@ var schedule = Schedule()
 var databasePath = ""
 
 var debug = false
-var debug_login = true
+var debug_login = false
 var debug_userID = 61
 
-let debugToday: NSDate = "2015-09-10 12:00:00".dateFromFormat("yyyy-MM-dd HH:mm:ss")!
+let debugToday: NSDate = "2015-09-10 12:0:00".dateFromFormat("yyyy-MM-dd HH:mm:ss")!
 
 
 class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDelegate {
