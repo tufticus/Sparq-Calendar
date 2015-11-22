@@ -19,7 +19,7 @@ var debug = false
 var debug_login = false
 var debug_userID = 61
 
-let debugToday: NSDate = "2015-09-10 12:0:00".dateFromFormat("yyyy-MM-dd HH:mm:ss")!
+let debugToday: NSDate = "2015-12-10 12:00:00".dateFromFormat("yyyy-MM-dd HH:mm:ss")!
 
 
 class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDelegate {
@@ -46,14 +46,14 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         passwordField.autocapitalizationType = UITextAutocapitalizationType.None
         
         // Do any additional setup after loading the view, typically from a nib.
-        let filemgr = NSFileManager.defaultManager()
+        //let filemgr = NSFileManager.defaultManager()
         let dirPaths =
         NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
             .UserDomainMask, true)
         
-        let docsDir = dirPaths[0] as! String
+        let docsDir = dirPaths[0] 
         
-        databasePath = docsDir.stringByAppendingPathComponent(
+        databasePath = (docsDir as NSString).stringByAppendingPathComponent(
             "sparq.db")
 
         
@@ -78,7 +78,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             let sparqDB = FMDatabase(path: databasePath as String)
             
             if sparqDB == nil {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             
             var version = 0
@@ -96,7 +96,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                     version = Int(results!.intForColumn("version"))
                     schoolYearID = Int(results!.intForColumn("schoolYearID"))
                 } else {
-                    println("error getting verson number")
+                    print("error getting verson number")
                 }
                 
                 
@@ -110,7 +110,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                     //usernameField.text = results?.stringForColumn("email")
                     userID = Int(results!.intForColumn("userID"))
                 } else {
-                    println("error getting user info")
+                    print("error getting user info")
                 }
                 
                 if version > 0 && schoolYearID > 0 && userID > 0 {
@@ -130,21 +130,21 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 RestApiManager.sharedInstance.checkVersion(version, schoolYearID: schoolYearID, onCompletion: { json -> Void in
                     
                     if json["version"] == "current" {
-                        println("schedule current")
+                        print("schedule current")
                         self.loginSegue()
                     } else { // grab the schedule again
-                        println("schedule out of date")
+                        print("schedule out of date")
                         self.dropAllTables()
                         
                         let sparqDB = FMDatabase(path: databasePath as String)
                         
                         if sparqDB == nil {
-                            println("Error: \(sparqDB.lastErrorMessage())")
+                            print("Error: \(sparqDB.lastErrorMessage())")
                         }
                         
                         var userID = 0
                         if sparqDB.open() {
-                            var stmt = "SELECT userID from Users LIMIT 1"
+                            let stmt = "SELECT userID from Users LIMIT 1"
                             
                             // delete old data first!
                             // TODO
@@ -158,7 +158,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                                 
                                 self.getSchedule(userID)
                             } else {
-                                println("error getting user info")
+                                print("error getting user info")
                             }
                         }
                         
@@ -172,18 +172,24 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
     }
     
     // built in method called when the main view is pressed
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     
     @IBAction func loginPressed(sender: AnyObject) {
-        println("Login button pressed")
+        print("Login button pressed")
         
         // can haz WIFI?
-        if !Reachability.isConnectedToNetwork() {
+        let status = Reach().connectionStatus()
+        switch status {
+        case .Unknown, .Offline:
             self.errorText.hidden = false
             self.errorText.text = "Not connected to the internet."
             return
+        case .Online(.WWAN):
+            print("Connected via WWAN")
+        case .Online(.WiFi):
+            print("Connected via WiFi")
         }
 
         
@@ -197,11 +203,11 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         //self.passwordField.resignFirstResponder()
         
         var username = usernameField.text
-        var password = passwordField.text
+        let password = passwordField.text
         
-        if username != nil && !username.isEmpty {
-            if username.rangeOfString("@") != nil && username.rangeOfString(".") != nil {
-                username = username.lowercaseString
+        if username != nil && !username!.isEmpty {
+            if username!.rangeOfString("@") != nil && username!.rangeOfString(".") != nil {
+                username = username!.lowercaseString
             } else {
                 self.errorText.hidden = false
                 self.errorText.text = "Not a valid email address"
@@ -215,7 +221,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             return
         }
         
-        if password != nil && !password.isEmpty {
+        if password != nil && !password!.isEmpty {
           
 //            password = 
         } else {
@@ -238,7 +244,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         }
         
         // make login call
-        RestApiManager.sharedInstance.login(username, password: password, onCompletion: { json -> Void in
+        RestApiManager.sharedInstance.login(username!, password: password!, onCompletion: { json -> Void in
             //self.errorText?.hidden = false
             //self.errorText?.text = String(json["userID"].intValue)
             
@@ -274,23 +280,23 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         let sparqDB = FMDatabase(path: databasePath as String)
         
         if sparqDB == nil {
-            println("Error: \(sparqDB.lastErrorMessage())")
+            print("Error: \(sparqDB.lastErrorMessage())")
         }
         
         /* iterate to save into DB */
         
         // User
-        user.email = usernameField.text
+        user.email = usernameField.text!
         user.userID = json["userID"].intValue
         user.type = json["type"].intValue
         user.grade = json["grade"].intValue
         
         // put into DB
         if sparqDB.open() == false {
-            println("can't open DB")
+            print("can't open DB")
         }
         
-        println("Inserting User")
+        print("Inserting User")
         var stmt = "INSERT INTO Users (userID, email, grade, type) VALUES "
         stmt += "(\(user.userID), "
         stmt += "'" + user.email + "', "
@@ -301,7 +307,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         
         if !results {
             self.errorText.text = "Failed to add user"
-            println("Error: \(sparqDB.lastErrorMessage())")
+            print("Error: \(sparqDB.lastErrorMessage())")
         }
         
         
@@ -316,7 +322,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         schedule.schoolYearID = json["schoolYearID"].intValue
         
         // put into DB
-        println("Inserting Schedule")
+        print("Inserting Schedule")
         stmt = "INSERT INTO Schedules (schoolName, startDate, stopDate, grade, timezone, version, schoolID, schoolYearID) VALUES"
         stmt += "('" + schedule.schoolName + "', "
         stmt += "'" + json["startDate"].stringValue + "', "
@@ -332,11 +338,11 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         
         if !results {
             self.errorText.text = "Failed to add schedule"
-            println("Error: \(sparqDB.lastErrorMessage())")
+            print("Error: \(sparqDB.lastErrorMessage())")
         }
         
-        println("Inserting Semesters")
-        for( index, semester) in json["semesters"] {
+        print("Inserting Semesters")
+        for( _, semester) in json["semesters"] {
             stmt  = "INSERT INTO Semesters(semesterID, startDate, stopDate) VALUES ("
             stmt += String(semester["id"].intValue) + ","
             stmt += "'" + semester["startDate"].stringValue + "',"
@@ -347,12 +353,12 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 withArgumentsInArray: nil)
             
             if !results {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
         }
         
-        println("Inserting Sections")
-        for( index, section) in json["sections"] {
+        print("Inserting Sections")
+        for( _, section) in json["sections"] {
             stmt  = "INSERT INTO Sections(sectionID, subject, grade, room, section, teacherName, teacherEmail, icon) VALUES ("
             stmt += String(section["id"].intValue) + ","
             stmt += "'" + section["subject"].stringValue + "', "
@@ -368,12 +374,12 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 withArgumentsInArray: nil)
             
             if !results {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
         }
         
-        println("Insert Meetings")
-        for( index, meeting ) in json["meetings"] {
+        print("Insert Meetings")
+        for( _, meeting ) in json["meetings"] {
             stmt = "INSERT INTO Meetings(sectionID, periodID, dayID, semesterID) VALUES("
             stmt += String(meeting["sectionID"].intValue) + ", "
             stmt += String(meeting["periodID"].intValue) + ", "
@@ -385,12 +391,12 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 withArgumentsInArray: nil)
             
             if !results {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
         }
         
-        println("Insert Periods")
-        for( index, period ) in json["periods"] {
+        print("Insert Periods")
+        for( _, period ) in json["periods"] {
             stmt = "INSERT INTO Periods(periodID, number, start, stop) VALUES("
             stmt += String(period["id"].intValue) + ", "
             stmt += String(period["number"].intValue) + ", "
@@ -402,13 +408,13 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 withArgumentsInArray: nil)
             
             if !results {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
         }
         
-        println("Insert Days")
+        print("Insert Days")
         var dayCount = 0
-        for( index, day ) in json["days"] {
+        for( _, day ) in json["days"] {
             stmt = "INSERT INTO Days(dayID, number, name) VALUES("
             stmt += String(day["id"].intValue) + ", "
             stmt += String(day["number"].intValue) + ", "
@@ -419,13 +425,13 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
                 withArgumentsInArray: nil)
             
             if !results {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             dayCount++
         }
         
-        println("Insert Holidays")
-        for( index, holiday ) in json["holidays"] {
+        print("Insert Holidays")
+        for( _, holiday ) in json["holidays"] {
             stmt = "INSERT INTO Holidays (name, date) VALUES ("
             
             stmt += "'" + holiday["name"].stringValue + "', "
@@ -437,7 +443,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             
             if !results {
                 self.errorText.text = "Failed to add user"
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
         }
         
@@ -484,7 +490,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             file.truncateFileAtOffset(0)
             file.closeFile()
         } else {
-            println("File open failed")
+            print("File open failed")
         }
         
         createTables()
@@ -495,55 +501,55 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
         let sparqDB = FMDatabase(path: databasePath as String)
         
         if sparqDB == nil {
-            println("Error: \(sparqDB.lastErrorMessage())")
+            print("Error: \(sparqDB.lastErrorMessage())")
         }
         
         if sparqDB.open() {
             var sql_stmt = "CREATE TABLE IF NOT EXISTS Users (userID INT, type INT, grade INT, email TEXT)"
             if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             
             
             sql_stmt = "CREATE TABLE IF NOT EXISTS Schedules (version INT, grade INT, schoolName TEXT, timezone TEXT, startDate TEXT, stopDate TEXT, schoolID INT, schoolYearID INT)"
             if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             
             sql_stmt = "CREATE TABLE IF NOT EXISTS Semesters (semesterID INT, startDate TEXT, stopDate TEXT)"
             if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             
             sql_stmt = "CREATE TABLE IF NOT EXISTS Sections (sectionID INT, subject TEXT, icon TEXT, grade INT, room TEXT, section INT, teacherName TEXT, teacherEmail TEXT)"
             if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             
             sql_stmt = "CREATE TABLE IF NOT EXISTS Meetings (semesterID INT, sectionID INT, periodID INT, dayID INT)"
             if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             
             sql_stmt = "CREATE TABLE IF NOT EXISTS Periods (periodID INT, number INT, start TEXT, stop TEXT)"
             if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
 
             
             sql_stmt = "CREATE TABLE IF NOT EXISTS Days (dayID INT, number INT, name TEXT)"
             if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             
             sql_stmt = "CREATE TABLE IF NOT EXISTS Holidays (name TEXT, date TEXT)"
             if !sparqDB.executeStatements(sql_stmt) {
-                println("Error: \(sparqDB.lastErrorMessage())")
+                print("Error: \(sparqDB.lastErrorMessage())")
             }
             
             sparqDB.close()
         } else {
-            println("Error: \(sparqDB.lastErrorMessage())")
+            print("Error: \(sparqDB.lastErrorMessage())")
         }
     }
     
@@ -568,7 +574,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
     
     
     @IBAction func registerPressed(sender: UIButton) {
-        var alert = UIAlertController(title: "Register", message: "Enter email & password", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Register", message: "Enter email & password", preferredStyle: UIAlertControllerStyle.Alert)
         var emailTF = UITextField()
         var pw1TF = UITextField()
         var pw2TF = UITextField()
@@ -636,18 +642,18 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
             alert.dismissViewControllerAnimated(true, completion: nil)
         }))
         
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
             textField.placeholder = "Enter email"
             emailTF = textField
         })
         
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
             textField.placeholder = "Enter password"
             textField.secureTextEntry = true
             pw1TF = textField
         })
         
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
             textField.placeholder = "Reenter password"
             textField.secureTextEntry = true
             pw2TF = textField
@@ -663,7 +669,7 @@ class LoginViewController: UIViewController, UIApplicationDelegate, UITextViewDe
     
     @IBAction func unwindToLogin(sender: UIStoryboardSegue)
     {
-        println("Logout")
+        print("Logout")
         dropAllTables()
         
         usernameField.text = ""

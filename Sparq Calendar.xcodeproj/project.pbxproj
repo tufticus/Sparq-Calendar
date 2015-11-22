@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DB031B921B338C3700417713 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B911B338C3700417713 /* AppDelegate.swift */; };
-		DB031B941B338C3700417713 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B931B338C3700417713 /* ViewController.swift */; };
 		DB031B991B338C3700417713 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB031B981B338C3700417713 /* Images.xcassets */; };
 		DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031BA71B338C3700417713 /* Sparq_CalendarTests.swift */; };
 		DB15D4721B545CE600CA2A63 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4711B545CE600CA2A63 /* RestApiManager.swift */; };
@@ -38,8 +37,6 @@
 		DB30607C1B742F2100052AC0 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30607B1B742F2100052AC0 /* ArrayExtension.swift */; };
 		DB30607D1B742F2100052AC0 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB30607B1B742F2100052AC0 /* ArrayExtension.swift */; };
 		DB34AF031B8222FC004751F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB031B981B338C3700417713 /* Images.xcassets */; };
-		DB4378951B8399970056CE60 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4378941B8399970056CE60 /* Reachability.swift */; };
-		DB4378961B8399970056CE60 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4378941B8399970056CE60 /* Reachability.swift */; };
 		DB48EDDB1BEEC82A00ADA62C /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDDA1BEEC82A00ADA62C /* Semester.swift */; };
 		DB48EDDC1BEEC82A00ADA62C /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDDA1BEEC82A00ADA62C /* Semester.swift */; };
 		DB48EDDE1BEEC8B800ADA62C /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB48EDDD1BEEC8B800ADA62C /* Section.swift */; };
@@ -53,6 +50,8 @@
 		DB7BE6641B5D590300F2725F /* Holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6631B5D590300F2725F /* Holidays.swift */; };
 		DB7BE6661B5D590400F2725F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6651B5D590400F2725F /* User.swift */; };
 		DB7BE66C1B5D590400F2725F /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE66B1B5D590400F2725F /* Schedule.swift */; };
+		DB9E63001C0165C8005B9C92 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E62FF1C0165C8005B9C92 /* Reach.swift */; };
+		DB9E63011C0165C8005B9C92 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E62FF1C0165C8005B9C92 /* Reach.swift */; };
 		DBA38C121B5D9DCC00CC09DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B911B338C3700417713 /* AppDelegate.swift */; };
 		DBCE7F6D1B6589330008D0BF /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F641B6589330008D0BF /* FMDatabase.m */; };
 		DBCE7F6E1B6589330008D0BF /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCE7F641B6589330008D0BF /* FMDatabase.m */; };
@@ -72,7 +71,6 @@
 		DBF2F4E61B5EB5F800B2F44F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6651B5D590400F2725F /* User.swift */; };
 		DBF2F4E71B5EB5FB00B2F44F /* Holidays.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BE6631B5D590300F2725F /* Holidays.swift */; };
 		DBF2F4E91B5EB60900B2F44F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */; };
-		DBF2F4EB1B5EB61400B2F44F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB031B931B338C3700417713 /* ViewController.swift */; };
 		DBF2F4EC1B5EB61600B2F44F /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB15D4711B545CE600CA2A63 /* RestApiManager.swift */; };
 		DBF2F4F11B5F065D00B2F44F /* ClassMeetings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2F4F01B5F065D00B2F44F /* ClassMeetings.swift */; };
 		DBF2F4F21B5F065D00B2F44F /* ClassMeetings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2F4F01B5F065D00B2F44F /* ClassMeetings.swift */; };
@@ -95,7 +93,6 @@
 		DB031B8C1B338C3700417713 /* Sparq Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sparq Calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB031B901B338C3700417713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB031B911B338C3700417713 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DB031B931B338C3700417713 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DB031B981B338C3700417713 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DB031B9B1B338C3700417713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DB031BA11B338C3700417713 /* Sparq CalendarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sparq CalendarTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +112,6 @@
 		DB3060681B7422C300052AC0 /* NSDateComponents+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDateComponents+Timepiece.swift"; path = "Timepeace/NSDateComponents+Timepiece.swift"; sourceTree = "<group>"; };
 		DB30606A1B7422C300052AC0 /* String+Timepiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Timepiece.swift"; path = "Timepeace/String+Timepiece.swift"; sourceTree = "<group>"; };
 		DB30607B1B742F2100052AC0 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
-		DB4378941B8399970056CE60 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		DB48EDDA1BEEC82A00ADA62C /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
 		DB48EDDD1BEEC8B800ADA62C /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		DB48EDE01BEEC96F00ADA62C /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
@@ -124,6 +120,7 @@
 		DB7BE6631B5D590300F2725F /* Holidays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holidays.swift; sourceTree = "<group>"; };
 		DB7BE6651B5D590400F2725F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DB7BE66B1B5D590400F2725F /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		DB9E62FF1C0165C8005B9C92 /* Reach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reach.swift; sourceTree = "<group>"; };
 		DBCE7F601B6589320008D0BF /* Sparq Calendar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sparq Calendar-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBCE7F611B6589320008D0BF /* Sparq CalendarTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sparq CalendarTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBCE7F621B6589330008D0BF /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = fmdb/src/fmdb/FMDB.h; sourceTree = "<group>"; };
@@ -199,7 +196,6 @@
 				DB48EDDA1BEEC82A00ADA62C /* Semester.swift */,
 				DB2EF47B1B66DE3700F78317 /* Main.storyboard */,
 				DB15D4761B56AB5A00CA2A63 /* LoginViewController.swift */,
-				DB031B931B338C3700417713 /* ViewController.swift */,
 				DB15D4711B545CE600CA2A63 /* RestApiManager.swift */,
 				DB2280751B51DC4C0023D10F /* ScheduleViewController.swift */,
 				DB031B981B338C3700417713 /* Images.xcassets */,
@@ -261,7 +257,7 @@
 				DB2280681B4B1D7E0023D10F /* SwiftyJSON.swift */,
 				DBCE7F601B6589320008D0BF /* Sparq Calendar-Bridging-Header.h */,
 				DBCE7F611B6589320008D0BF /* Sparq CalendarTests-Bridging-Header.h */,
-				DB4378941B8399970056CE60 /* Reachability.swift */,
+				DB9E62FF1C0165C8005B9C92 /* Reach.swift */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -310,8 +306,9 @@
 		DB031B841B338C3700417713 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Sparq Calendar";
 				TargetAttributes = {
 					DB031B8B1B338C3700417713 = {
@@ -324,6 +321,7 @@
 					};
 					DB031BA01B338C3700417713 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = NN79454WDC;
 						TestTargetID = DB031B8B1B338C3700417713;
 					};
 				};
@@ -383,6 +381,7 @@
 				DB3060711B7422C300052AC0 /* NSCalendarUnit+Timepiece.swift in Sources */,
 				DBCE7F751B6589330008D0BF /* FMDatabasePool.m in Sources */,
 				DB48EDE41BEEC9D800ADA62C /* RotationalDay.swift in Sources */,
+				DB9E63001C0165C8005B9C92 /* Reach.swift in Sources */,
 				DB48EDE11BEEC96F00ADA62C /* Period.swift in Sources */,
 				DB3060731B7422C300052AC0 /* NSDate+Timepiece.swift in Sources */,
 				DB48EDE71BEFE1FE00ADA62C /* Class.swift in Sources */,
@@ -392,9 +391,7 @@
 				DBCE7F731B6589330008D0BF /* FMDatabaseAdditions.m in Sources */,
 				DB30606D1B7422C300052AC0 /* Int+Timepiece.swift in Sources */,
 				DB48EDDE1BEEC8B800ADA62C /* Section.swift in Sources */,
-				DB4378951B8399970056CE60 /* Reachability.swift in Sources */,
 				DBCE7F6F1B6589330008D0BF /* FMResultSet.m in Sources */,
-				DB031B941B338C3700417713 /* ViewController.swift in Sources */,
 				DB15D4721B545CE600CA2A63 /* RestApiManager.swift in Sources */,
 				DB7BE6661B5D590400F2725F /* User.swift in Sources */,
 				DBF2F4F41B5FE56300B2F44F /* Days.swift in Sources */,
@@ -413,14 +410,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBF2F4EB1B5EB61400B2F44F /* ViewController.swift in Sources */,
 				DB30606C1B7422C300052AC0 /* Duration.swift in Sources */,
 				DBF2F4EC1B5EB61600B2F44F /* RestApiManager.swift in Sources */,
 				DBA38C121B5D9DCC00CC09DC /* AppDelegate.swift in Sources */,
 				DB2280771B51DC4C0023D10F /* ScheduleViewController.swift in Sources */,
 				DBF2F4F51B5FE56300B2F44F /* Days.swift in Sources */,
 				DB031BA81B338C3700417713 /* Sparq_CalendarTests.swift in Sources */,
-				DB4378961B8399970056CE60 /* Reachability.swift in Sources */,
 				DBF2F4E31B5EB5ED00B2F44F /* Schedule.swift in Sources */,
 				DB48EDDF1BEEC8B800ADA62C /* Section.swift in Sources */,
 				DB48EDE21BEEC96F00ADA62C /* Period.swift in Sources */,
@@ -445,6 +440,7 @@
 				DBCE7F761B6589330008D0BF /* FMDatabasePool.m in Sources */,
 				DBCE7F6E1B6589330008D0BF /* FMDatabase.m in Sources */,
 				DB48EDE81BEFE1FE00ADA62C /* Class.swift in Sources */,
+				DB9E63011C0165C8005B9C92 /* Reach.swift in Sources */,
 				DBCE7F721B6589330008D0BF /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -496,10 +492,12 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -518,6 +516,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "e4a4fb9b-ed36-410c-8548-4081e1d21649";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -541,7 +540,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -556,6 +555,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "e4a4fb9b-ed36-410c-8548-4081e1d21649";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -567,17 +567,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Schulz (NN79454WDC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sparq",
 					Calendar,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sparqcalendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "71634901-4bc0-45b2-ab52-2371da9c2c4b";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq Calendar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -588,17 +589,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Schulz (NN79454WDC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sparq",
 					Calendar,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sparqcalendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "71634901-4bc0-45b2-ab52-2371da9c2c4b";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq Calendar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -609,6 +611,8 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -624,7 +628,9 @@
 					"$(PROJECT_DIR)/Sparq",
 					Calendar,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Sparq-Calendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq CalendarTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sparq Calendar.app/Sparq Calendar";
@@ -636,6 +642,8 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -647,7 +655,9 @@
 					"$(PROJECT_DIR)/Sparq",
 					Calendar,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Sparq-Calendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq CalendarTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sparq Calendar.app/Sparq Calendar";
 			};
@@ -670,7 +680,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -685,6 +695,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "e4a4fb9b-ed36-410c-8548-4081e1d21649";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -696,17 +707,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Schulz (NN79454WDC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sparq",
 					Calendar,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sparqcalendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "71634901-4bc0-45b2-ab52-2371da9c2c4b";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq Calendar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -717,6 +729,8 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -728,7 +742,9 @@
 					"$(PROJECT_DIR)/Sparq",
 					Calendar,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Sparq-Calendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq CalendarTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sparq Calendar.app/Sparq Calendar";
 			};

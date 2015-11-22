@@ -19,8 +19,7 @@ let notToday = UIColor(red: 202/255.0, green: 224/255.0, blue: 220/255.0, alpha:
 
 
 // this is the delegate
-class ScheduleViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
-    let gl = CAGradientLayer()
+class ScheduleViewController: UITableViewController {
     
     var items = NSMutableArray();
         var dayID = 0
@@ -90,11 +89,11 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         
         let cal = NSCalendar.currentCalendar()
         
-        let components = cal.components(NSCalendarUnit.CalendarUnitDay, fromDate: schedule.startDate, toDate: now, options: nil)
+        let components = cal.components(NSCalendarUnit.Day, fromDate: schedule.startDate, toDate: now, options: [])
         let daysBetween = components.day
-        let startComp = cal.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: schedule.startDate)
+        let startComp = cal.components(NSCalendarUnit.Weekday, fromDate: schedule.startDate)
         let startWeekday = startComp.weekday
-        let stopComp = cal.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: now)
+        let stopComp = cal.components(NSCalendarUnit.Weekday, fromDate: now)
         let stopWeekeday = stopComp.weekday
         
         if stopComp.weekday == 1 || stopComp.weekday == 7 {
@@ -117,14 +116,14 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         }
         classes = [Class]()
         
-        println("Loading tableView for " + dateFormatter.stringFromDate(today) + " " + timeFormatter.stringFromDate(today))
+        print("Loading tableView for " + dateFormatter.stringFromDate(today) + " " + timeFormatter.stringFromDate(today))
         
         dateLabel.text = today.stringFromFormat("EEEE MMM d")
         
         
         let holiday = dateFormatter.stringFromDate(today)
         
-        if let h = holidays[holiday] {
+        if let _ = holidays[holiday] {
             // load view for today's holiday
             dayLabel.text = "Holiday"
         } else if schedule.startDate > today {
@@ -180,11 +179,11 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                     stmt += "AND '" + dateFormatter.stringFromDate(date) + "' between sem.startDate and sem.stopDate "
                     stmt += "order by p.number ASC"
                 
-                var results:FMResultSet? = sparqDB.executeQuery(stmt,
+                let results:FMResultSet? = sparqDB.executeQuery(stmt,
                     withArgumentsInArray: nil)
                 
                 while results?.next() == true {
-                    var c = Class()
+                    let c = Class()
                     
                     c.subject = results!.stringForColumn("subject")
                     c.grade = Int(results!.intForColumn("grade"))
@@ -234,7 +233,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             
             days = [String]()
             while results?.next() == true {
-                var day = Days()
+                let day = Days()
                 
                 day.name = results!.stringForColumn("name")
                 day.number = Int(results!.intForColumn("number"))
@@ -246,10 +245,10 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             results = sparqDB.executeQuery(stmt, withArgumentsInArray: nil)
             
             while results?.next() == true {
-                var day = Holidays()
+                //var day = Holidays()
                 
-                var name = results!.stringForColumn("name")
-                var date = results!.stringForColumn("date")
+                let name = results!.stringForColumn("name")
+                let date = results!.stringForColumn("date")
                 
                 holidays[date] = name
             }
@@ -299,7 +298,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if let h = holidays[dateFormatter.stringFromDate(today)] {
+        if let _ = holidays[dateFormatter.stringFromDate(today)] {
             return 1
         } else {
             if classes.count == 0 {
@@ -324,6 +323,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             cell.subjectLabel?.text = h
             cell.roomLabel?.text = ""
             cell.timeLabel?.text = ""
+            cell.teacherLabel?.text = ""
             cell.backgroundColor = UIColor.whiteColor()
         } else if classes.count == 0 { // weekend
             cell.subjectImage?.image = UIImage(named: "icn_default")
@@ -431,7 +431,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     }
     
     func startTimer() {
-        if let n = notificationTimer {
+        if let _ = notificationTimer {
             return
         }
         
@@ -446,7 +446,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             if debug {
                 now = today
             }
-            let nowStr = timeFormatter.stringFromDate(now)
+            //let nowStr = timeFormatter.stringFromDate(now)
             
     //        switch UIApplication.sharedApplication().applicationState {
     //        case .Active:
@@ -478,7 +478,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                     } else if meetings.last.stopTime << now { // after classes have started, check tomorrow
                         timerInterval = now.beginningOfDay + 1.day - now
                     } else { // during a class, pick next
-                        for (index, m) in enumerate(meetings) {
+                        for (index, m) in meetings.enumerate() {
                             if (m.startTime <<= now) && m.stopTime >> now {
                                 if index == meetings.count - 1 { // last class, pick next day
                                     timerInterval = now.beginningOfDay + 1.day - now
@@ -510,7 +510,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     func pushClassNotification(meeting: Class) {
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
-        var localNotification: UILocalNotification = UILocalNotification()
+        let localNotification: UILocalNotification = UILocalNotification()
         localNotification.alertAction = "Next Class"
         localNotification.alertBody = meeting.dayName + " - Day\n" + meeting.subject + " in " + meeting.room + "\n" + todFormatter.stringFromDate(meeting.startTime) + " to " + todFormatter.stringFromDate(meeting.stopTime)
         UIApplication.sharedApplication().scheduleLocalNotification(localNotification)

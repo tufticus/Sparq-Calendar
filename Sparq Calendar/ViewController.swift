@@ -14,11 +14,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var tableView:UITableView?
     var items = NSMutableArray();
     
-    let people = [
-    ("Abraham","Mexico"),
-    ("Andrew","Texas")
-    ]
-    
     
     
     override func viewDidLoad() {
@@ -50,24 +45,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    // how many sections are in the table?
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1;
-    }
-    
-    // how many sections are in the table?
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count; // TODO number of Periods
-    }
-    
-    // what is the cell content?
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        
-        var (name,location) = people[indexPath.row]
-        
-        
-        return cell
-    }
+//    // how many sections are in the table?
+//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        return 1;
+//    }
+//    
+//    // how many sections are in the table?
+//    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return items.count; // TODO number of Periods
+//    }
+//    
+//    // what is the cell content?
+//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = UITableViewCell()
+//        
+//        var (name,location) = people[indexPath.row]
+//        
+//        
+//        return cell
+//    }
     
 }

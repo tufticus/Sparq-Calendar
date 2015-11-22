@@ -52,11 +52,12 @@ class RestApiManager: NSObject {
     
     func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+        request.HTTPMethod = "GET"
         
         let session = NSURLSession.sharedSession()
         
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error in
-            let json:JSON  = JSON(data: data)
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            let json:JSON  = JSON(data: data!)
             
             onCompletion(json,error)
         })
@@ -76,7 +77,7 @@ class RestApiManager: NSObject {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            let json:JSON = JSON(data: data)
+            let json:JSON = JSON(data: data!)
             onCompletion(json, err)
         })
         task.resume()
