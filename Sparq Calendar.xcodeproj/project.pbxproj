@@ -567,7 +567,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Schulz (NN79454WDC)";
 				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -578,7 +578,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sparqcalendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "71634901-4bc0-45b2-ab52-2371da9c2c4b";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq Calendar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -589,7 +589,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Schulz (NN79454WDC)";
 				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -600,7 +600,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sparqcalendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "71634901-4bc0-45b2-ab52-2371da9c2c4b";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq Calendar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -707,7 +707,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Schulz (NN79454WDC)";
 				INFOPLIST_FILE = "Sparq Calendar/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -718,7 +718,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sparqcalendar.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "71634901-4bc0-45b2-ab52-2371da9c2c4b";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparq Calendar/Sparq Calendar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
