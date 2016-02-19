@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "CF2EA5DF0CB0390A3BCA8D873263D4B8AC5C21FC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53" : 0,
+    "CF2EA5DF0CB0390A3BCA8D873263D4B8AC5C21FC" : 0,
+    "04101981B66E318109934C9516F88D824BB96459" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "88DB069B-6EB8-4813-9A73-5060FB828708",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53" : "Sparq-Calendar\/CryptoSwift",
+    "CF2EA5DF0CB0390A3BCA8D873263D4B8AC5C21FC" : "Sparq-Calendar",
+    "04101981B66E318109934C9516F88D824BB96459" : "Sparq-CalendarSparq%20Calendar\/fmdb"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Sparq Calendar",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Sparq Calendar.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ccgus\/fmdb.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "04101981B66E318109934C9516F88D824BB96459"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/krzyzanowskim\/CryptoSwift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tufticus\/Sparq-Calendar.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CF2EA5DF0CB0390A3BCA8D873263D4B8AC5C21FC"
+    }
+  ]
+}

@@ -62,7 +62,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // what is the cell content?
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
+        let cell = UITableViewCell()
         
         var (name,location) = people[indexPath.row]
         

@@ -9,7 +9,7 @@
 import Foundation
 
 func < (lhs: String, rhs: String) -> Bool {
-    let result = compare(lhs,rhs)
+    let result = compare(lhs,rhs: rhs)
     
     if result == -1 {
         return true
@@ -19,7 +19,7 @@ func < (lhs: String, rhs: String) -> Bool {
 }
     
 func <= (lhs: String, rhs: String) -> Bool {
-    let result = compare(lhs,rhs)
+    let result = compare(lhs,rhs: rhs)
     
     if result == -1 || result == 0 {
         return true
@@ -29,7 +29,7 @@ func <= (lhs: String, rhs: String) -> Bool {
 }
     
 func > (lhs: String, rhs: String) -> Bool {
-    let result = compare(lhs,rhs)
+    let result = compare(lhs,rhs: rhs)
     
     if result == 1 {
         return true
@@ -39,7 +39,7 @@ func > (lhs: String, rhs: String) -> Bool {
 }
     
 func >= (lhs: String, rhs:String) -> Bool {
-    let result = compare(lhs,rhs)
+    let result = compare(lhs,rhs: rhs)
     
     if result == 1 || result == 0 {
         return true
@@ -49,8 +49,8 @@ func >= (lhs: String, rhs:String) -> Bool {
 }
 
 func compare(lhs: String, rhs: String) -> Int {
-    let lSize = count(lhs)
-    let rSize = count(rhs)
+    let lSize = lhs.characters.count
+    let rSize = rhs.characters.count
     let len = lSize < rSize ? lSize : rSize
     
     for i in 0...len {
@@ -67,7 +67,7 @@ func compare(lhs: String, rhs: String) -> Int {
 extension String {
     
     subscript (i: Int) -> Character {
-        return self[advance(self.startIndex,i)] as Character
+        return self[self.startIndex.advancedBy(i)] as Character
     }
     
 //    subscript (i: Int) -> String {
@@ -75,6 +75,6 @@ extension String {
 //    }
     
     subscript (r: Range<Int>) -> String {
-        return substringWithRange(Range(start: advance(startIndex, r.startIndex), end: advance(startIndex, r.endIndex)))
+        return substringWithRange(Range(start: startIndex.advancedBy(r.startIndex), end: startIndex.advancedBy(r.endIndex)))
     }
 }

@@ -16,7 +16,7 @@ let darkGrey = UIColor(red: 214/255.0, green: 214/255.0, blue: 214/255.0, alpha:
 
 
 // this is the delegate
-class ScheduleViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+class ScheduleViewController: UITableViewController {
     let gl = CAGradientLayer()
     
     var items = NSMutableArray();
@@ -87,11 +87,11 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         
         let cal = NSCalendar.currentCalendar()
         
-        let components = cal.components(NSCalendarUnit.CalendarUnitDay, fromDate: schedule.startDate, toDate: now, options: nil)
+        let components = cal.components(NSCalendarUnit.Day, fromDate: schedule.startDate, toDate: now, options: [])
         let daysBetween = components.day
-        let startComp = cal.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: schedule.startDate)
+        let startComp = cal.components(NSCalendarUnit.Weekday, fromDate: schedule.startDate)
         let startWeekday = startComp.weekday
-        let stopComp = cal.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: now)
+        let stopComp = cal.components(NSCalendarUnit.Weekday, fromDate: now)
         let stopWeekeday = stopComp.weekday
         
         if stopComp.weekday == 1 || stopComp.weekday == 7 {
@@ -114,7 +114,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         }
         classes = [ClassMeetings]()
         
-        println("Loading tableView for " + dateFormatter.stringFromDate(today) + " " + timeFormatter.stringFromDate(today))
+        print("Loading tableView for " + dateFormatter.stringFromDate(today) + " " + timeFormatter.stringFromDate(today))
         
         dateLabel.text = today.stringFromFormat("EEEE MMM d")
         
@@ -156,13 +156,13 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
         
             let sparqDB = FMDatabase(path: databasePath as String)
             if sparqDB.open() {
-                var stmt = "SELECT * from Meetings WHERE day = \(dayNumber) order by startTime ASC"
+                let stmt = "SELECT * from Meetings WHERE day = \(dayNumber) order by startTime ASC"
                 
-                var results:FMResultSet? = sparqDB.executeQuery(stmt,
+                let results:FMResultSet? = sparqDB.executeQuery(stmt,
                     withArgumentsInArray: nil)
                 
                 while results?.next() == true {
-                    var meeting = ClassMeetings()
+                    let meeting = ClassMeetings()
                     
                     meeting.subject = results!.stringForColumn("subject")
                     meeting.grade = Int(results!.intForColumn("grade"))
@@ -212,7 +212,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             
             days = [String]()
             while results?.next() == true {
-                var day = Days()
+                let day = Days()
                 
                 day.name = results!.stringForColumn("name")
                 day.number = Int(results!.intForColumn("number"))
@@ -226,8 +226,8 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
             while results?.next() == true {
                 var day = Holidays()
                 
-                var name = results!.stringForColumn("name")
-                var date = results!.stringForColumn("date")
+                let name = results!.stringForColumn("name")
+                let date = results!.stringForColumn("date")
                 
                 holidays[date] = name
             }
@@ -430,7 +430,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
                     } else if meetings.last.stopTime << now { // after classes have started, check tomorrow
                         timerInterval = now.beginningOfDay + 1.day - now
                     } else { // during a class, pick next
-                        for (index, m) in enumerate(meetings) {
+                        for (index, m) in meetings.enumerate() {
                             if (m.startTime <<= now) && m.stopTime >> now {
                                 if index == meetings.count - 1 { // last class, pick next day
                                     timerInterval = now.beginningOfDay + 1.day - now
@@ -462,7 +462,7 @@ class ScheduleViewController: UITableViewController, UITableViewDelegate, UITabl
     func pushClassNotification(meeting: ClassMeetings) {
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
-        var localNotification: UILocalNotification = UILocalNotification()
+        let localNotification: UILocalNotification = UILocalNotification()
         localNotification.alertAction = "Next Class"
         localNotification.alertBody = meeting.dayName + " - Day\n" + meeting.subject + " in " + meeting.room + "\n" + todFormatter.stringFromDate(meeting.startTime) + " to " + todFormatter.stringFromDate(meeting.stopTime)
         UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
